@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="15" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="4">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="15" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="4" nextobjectid="4">
  <tileset firstgid="1" name="test" tilewidth="32" tileheight="32" tilecount="3" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="3" type="grass">
@@ -20,55 +20,55 @@
    </animation>
   </tile>
  </tileset>
- <layer id="1" name="default" width="15" height="15">
+ <layer id="1" name="Tile Layer 1" width="15" height="15">
   <data encoding="csv">
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+4,6,6,6,6,6,4,4,4,4,4,4,4,4,4,
+4,6,6,6,6,6,4,4,4,4,4,4,4,4,4,
+4,6,6,6,6,6,4,4,4,4,4,4,4,4,4,
+4,6,6,6,6,6,4,4,4,4,4,4,4,4,4,
+4,6,6,6,6,6,4,4,4,4,4,4,4,4,4,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
-4,4,4,4,4,4,4,4,4,4,4,4,4,6,4,
-4,4,4,4,4,4,4,4,4,6,4,4,4,6,4,
-4,4,4,4,4,4,4,4,4,4,4,4,4,6,4,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
 4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
-4,4,4,4,4,4,4,4,4,4,6,6,6,6,6,
-4,4,4,4,4,4,4,4,4,6,6,6,6,6,6,
-4,4,4,4,6,6,6,6,6,6,6,6,6,6,6,
-6,6,6,6,6,6,6,6,6,6,6,6,6,6,6
+4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+4,4,4,4,4,4,4,4,4,4,4,4,4,4,4
 </data>
  </layer>
- <objectgroup id="4" name="Triggers">
-  <object id="1" name="next_level_trigger" x="161" y="2" width="80" height="86">
-   <properties>
-    <property name="next_level_name" value="next"/>
-   </properties>
-  </object>
-  <object id="2" name="character" x="194" y="207">
-   <point/>
-  </object>
- </objectgroup>
- <layer id="2" name="collision" width="15" height="15">
+ <layer id="2" name="collide" width="15" height="15">
   <properties>
    <property name="collide" type="bool" value="true"/>
   </properties>
   <data encoding="csv">
-0,0,0,5,0,0,0,0,5,5,5,0,0,0,0,
-0,0,0,5,0,0,0,0,5,0,5,0,0,0,0,
-0,0,0,5,0,0,0,0,5,0,5,0,0,0,0,
-0,0,0,5,0,0,0,0,5,0,5,0,0,0,0,
-0,0,0,5,0,0,0,0,5,0,5,0,0,0,0,
-0,0,0,5,0,0,0,0,5,0,5,5,5,5,5,
-0,0,0,5,0,0,0,0,5,5,5,0,0,0,5,
-0,0,0,5,0,0,0,0,5,0,5,0,0,0,5,
-0,0,0,5,0,0,0,0,5,5,5,0,0,0,5,
-0,0,0,5,0,0,0,0,0,0,5,5,5,5,5,
-0,0,0,5,5,5,5,5,5,5,5,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+5,5,5,5,5,5,5,5,5,0,0,5,5,5,5,
+5,0,0,0,0,0,0,0,5,0,0,5,0,0,5,
+5,0,0,0,0,0,0,0,5,0,0,5,0,0,5,
+5,0,0,0,0,0,0,0,5,0,0,5,0,0,5,
+5,0,0,0,0,0,0,0,5,0,0,5,0,0,5,
+5,0,0,0,0,0,0,0,5,0,0,5,0,0,5,
+5,0,0,0,0,0,0,0,5,0,0,5,0,0,5,
+5,0,0,0,0,0,0,0,5,0,0,5,0,0,5,
+5,0,0,0,0,0,0,0,5,0,0,5,0,0,5,
+5,5,0,0,0,5,5,5,5,5,5,5,5,0,5,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,
+0,0,0,0,0,5,0,0,0,0,0,0,0,0,5,
+0,0,0,0,0,5,5,5,5,5,5,5,0,0,5,
+5,5,5,0,0,0,0,0,0,0,0,5,5,5,5
 </data>
  </layer>
+ <objectgroup id="3" name="Object Layer 1">
+  <object id="1" name="next_level_trigger" x="60" y="167" width="88" height="86">
+   <properties>
+    <property name="next_level_name" value="error"/>
+   </properties>
+  </object>
+  <object id="2" name="character" x="416" y="131">
+   <point/>
+  </object>
+ </objectgroup>
 </map>
