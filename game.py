@@ -1,8 +1,7 @@
+import sys
+
 import pygame
 import configparser
-import os
-import pytmx
-from tile import Tile
 
 
 class Game:
@@ -15,10 +14,7 @@ class Game:
         self.fps = int(config['GRAPHICS']['fps'])
         self.frame_clock = pygame.time.Clock()
 
-        self.groups = dict()  # словарь вида {name: group_object} для всех групп в игре
-        # (т.к. их состав завивист от текущей сцены игры на экране)
-        self.collider_tiles = pygame.sprite.Group()  # группа тайлов, через которые игрок не может пройти
-        self.enemy_tiles = pygame.sprite.Group()  # группа тайлов, которые атакуют игрока при прохождении
+        self.render_queue = []  # список всех групп, которые будут отрисованы в следующий кадр
 
         self.subscribers = dict()  # словарь вида {event_type: callback} для подписчиков на события
 
@@ -28,45 +24,18 @@ class Game:
             for event in pygame.event.get():
                 if event.type in self.subscribers:
                     self.subscribers[event.type](event)
-            for group in self.groups.values():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+            for group in self.render_queue:
                 group.update()
                 group.draw(self.screen)
             pygame.display.flip()
 
-    def load_level(self, level_name):
-        fullname = os.path.join('levels', level_name + '.tmx')
-        if not os.path.isfile(fullname):
-            raise FileNotFoundError('Level {level_name}.tmx does not exist')
-        tmx_map = pytmx.util_pygame.load_pygame(fullname)
+    def render(self, group):
+        self.render_queue.append(group)
 
-        for layer_index in tmx_map.visible_tile_layers:
-            layer = tmx_map.layers[layer_index]
-            layer_tiles = []
-
-            for x, y, gid in layer.iter_data():
-                props = tmx_map.get_tile_properties_by_gid(gid)
-                image = tmx_map.images[gid]
-
-                if image is None:
-                    continue
-
-                animation = []
-                if props is not None:
-                    for animation_frame in props.get('frames', []):
-                        animation.append(tmx_map.get_tile_image_by_gid(animation_frame))
-                tile = Tile(x, y, image, animation)
-                layer_tiles.append(tile)
-
-            if layer.properties.get('collide', False):
-                self.collider_tiles.add(layer_tiles)
-            if layer.properties.get('enemy', False):
-                self.enemy_tiles.add(layer_tiles)
-
-            self.groups[layer.name] = pygame.sprite.Group(layer_tiles)
-
-    def show_start_menu(self):
-        # TODO: захардкоденное меню старта игры
-        pass
+    def clear_render(self):
+        self.render_queue.clear()
 
     def subscribe(self, event_type, callback):
         """Подписывает метод на pygame-событие.
