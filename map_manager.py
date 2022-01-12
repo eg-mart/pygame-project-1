@@ -14,8 +14,12 @@ class MapManager(pygame.sprite.Group):
     def load_level(self, level_name):
         fullname = os.path.join('levels', level_name + '.tmx')
         if not os.path.isfile(fullname):
-            raise FileNotFoundError('Level {level_name}.tmx does not exist')
+            raise FileNotFoundError(f'Level {level_name}.tmx does not exist')
         tmx_map = pytmx.util_pygame.load_pygame(fullname)
+
+        self.empty()
+        self.collider_tiles.empty()
+        self.enemy_tiles.empty()
 
         for layer_index in tmx_map.visible_tile_layers:
             layer = tmx_map.layers[layer_index]
@@ -31,7 +35,7 @@ class MapManager(pygame.sprite.Group):
                 animation = []
                 if props is not None:
                     for animation_frame in props.get('frames', []):
-                        animation.append(tmx_map.get_tile_image_by_gid(animation_frame))
+                        animation.append((tmx_map.get_tile_image_by_gid(animation_frame.gid), animation_frame.duration))
                 tile = Tile(x, y, image, animation)
                 layer_tiles.append(tile)
 
@@ -41,3 +45,6 @@ class MapManager(pygame.sprite.Group):
                 self.enemy_tiles.add(layer_tiles)
 
             self.add(layer_tiles)
+
+    def collide(self, sprite):
+        return pygame.sprite.spritecollideany(sprite, self.collider_tiles)

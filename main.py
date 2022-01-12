@@ -1,8 +1,8 @@
 from game import Game
-from map_manager import MapManager
+from level_manager import LevelManager
 
 g = Game()
-lvl = MapManager()
+lvl = LevelManager(g.size[0], g.size[1])
 lvl.load_level('main')
 g.render(lvl)
 g.run()

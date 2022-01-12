@@ -9,8 +9,8 @@ class Game:
         pygame.init()
         config = configparser.ConfigParser()
         config.read('example.conf')
-        size = int(config['GRAPHICS']['width']), int(config['GRAPHICS']['height'])
-        self.screen = pygame.display.set_mode(size)
+        self.size = int(config['GRAPHICS']['width']), int(config['GRAPHICS']['height'])
+        self.screen = pygame.display.set_mode(self.size)
         self.fps = int(config['GRAPHICS']['fps'])
         self.frame_clock = pygame.time.Clock()
 
@@ -21,6 +21,7 @@ class Game:
     def run(self):
         while True:
             self.frame_clock.tick(self.fps)
+            self.screen.fill(pygame.Color('black'))
             for event in pygame.event.get():
                 if event.type in self.subscribers:
                     self.subscribers[event.type](event)
