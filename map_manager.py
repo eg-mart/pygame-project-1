@@ -4,7 +4,7 @@ import pytmx
 from tile import Tile
 
 
-class LevelManager(pygame.sprite.Group):
+class MapManager(pygame.sprite.Group):
     def __init__(self):
         super().__init__()
 
