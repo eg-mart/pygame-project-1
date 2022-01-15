@@ -13,10 +13,14 @@ class Tile(pygame.sprite.Sprite):
         self.rect = image.get_rect()
         self.rect.x = x * TILE_WIDTH
         self.rect.y = y * TILE_HEIGHT
-        self.animation = animation  # поддерживает анимации из tmx, хотя duration кадров пока не учитывается
+        self.animation = animation
+        self.animation_clock = pygame.time.Clock()
+        self.frame_duration = 0
         self.frame = 0
 
     def update(self):
-        if len(self.animation) > 0:
+        self.frame_duration += self.animation_clock.tick()
+        if len(self.animation) > 0 and self.frame_duration >= self.animation[self.frame][1]:
             self.frame = (self.frame + 1) % len(self.animation)
-            self.image = self.animation[self.frame]
+            self.image = self.animation[self.frame][0]
+            self.frame_duration = 0
