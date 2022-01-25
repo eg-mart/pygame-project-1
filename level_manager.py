@@ -55,6 +55,7 @@ class LevelManager:
         self.character.rect.y = character_pos.y
 
         self.map_manager.load_level(level_name)
+        print(self.map_manager)
 
     def collide(self, sprite):
         return self.map_manager.collide(sprite)
