@@ -3,11 +3,14 @@ import pytmx
 from map_manager import MapManager
 from character import Character
 import os
+from moveable import Moveable
+from enemy_manager import EnemyManager
 
 
 class LevelManager:
     def __init__(self, width, height):
         self.map_manager = MapManager()
+        self.enemy_manager = EnemyManager()
         self.character = Character(self)
         self.width = width
         self.height = height
@@ -16,16 +19,24 @@ class LevelManager:
 
     def draw(self, surface):
         self.map_manager.draw(surface)
+        self.enemy_manager.draw(surface)
         surface.blit(self.character.image, self.character.rect)
 
     def update(self):
         self.map_manager.update()
+        self.enemy_manager.update()
         self.character.update()
 
         self.apply_camera(*self.map_manager)
+        self.apply_camera(*self.enemy_manager)
+        self.apply_camera(*self.enemy_manager.triggers)
+        for value in self.enemy_manager.trigger_data.values():
+            self.apply_camera(*value)
         self.apply_camera(self.level_trigger)
 
         self.apply_camera(self.character)
+
+        self.enemy_manager.check_triggers(self.character)
 
         if pygame.sprite.collide_rect(self.character, self.level_trigger):
             self.load_level(self.next_level)
@@ -35,8 +46,12 @@ class LevelManager:
         dy = -(self.character.rect.y + self.character.rect.h // 2 - self.height // 2)
 
         for sprite in args:
-            sprite.rect.x += dx
-            sprite.rect.y += dy
+            if isinstance(sprite, Moveable):
+                sprite.x += dx
+                sprite.y += dy
+            else:
+                sprite.rect.x += dx
+                sprite.rect.y += dy
 
     def load_level(self, level_name):
         fullname = os.path.join('levels', level_name + '.tmx')
@@ -51,10 +66,11 @@ class LevelManager:
         self.level_trigger.rect = rect
 
         character_pos = tmx_map.get_object_by_name('character')
-        self.character.rect.x = character_pos.x
-        self.character.rect.y = character_pos.y
+        self.character.x = character_pos.x
+        self.character.y = character_pos.y
 
         self.map_manager.load_level(level_name)
+        self.enemy_manager.load_level(level_name)
 
     def collide(self, sprite):
         return self.map_manager.collide(sprite)
