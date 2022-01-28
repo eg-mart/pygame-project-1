@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="15" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="7">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="15" height="15" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="4">
+ <properties>
+  <property name="bg_color" type="color" value="#ff302c2e"/>
+ </properties>
  <tileset firstgid="1" name="test" tilewidth="32" tileheight="32" tilecount="3" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="3" type="grass">
-   <image width="32" height="32" source="../../../Pictures/test_tileset/1.png"/>
+   <image width="32" height="32" source="../sprites/1.png"/>
   </tile>
   <tile id="4" type="wall">
-   <image width="32" height="32" source="../../../Pictures/test_tileset/2.png"/>
+   <image width="32" height="32" source="../sprites/2.png"/>
    <objectgroup draworder="index" id="2">
     <object id="2" x="15.2881" y="15.9601"/>
    </objectgroup>
   </tile>
   <tile id="5" type="water">
-   <image width="32" height="32" source="../../../Pictures/test_tileset/3.png"/>
+   <image width="32" height="32" source="../sprites/3.png"/>
    <animation>
     <frame tileid="3" duration="190"/>
     <frame tileid="4" duration="190"/>

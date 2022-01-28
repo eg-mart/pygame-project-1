@@ -11,6 +11,8 @@ class MapManager(pygame.sprite.Group):
         self.collider_tiles = pygame.sprite.Group()  # группа тайлов, через которые игрок не может пройти
         self.enemy_tiles = pygame.sprite.Group()  # группа тайлов, которые атакуют игрока при прохождении
 
+        self.bg_color = '#000000'
+
     def load_level(self, level_name):
         fullname = os.path.join('levels', level_name + '.tmx')
         if not os.path.isfile(fullname):
@@ -45,6 +47,8 @@ class MapManager(pygame.sprite.Group):
                 self.enemy_tiles.add(layer_tiles)
 
             self.add(layer_tiles)
+
+        self.bg_color = tmx_map.properties['bg_color']
 
     def collide(self, sprite):
         return pygame.sprite.spritecollideany(sprite, self.collider_tiles)

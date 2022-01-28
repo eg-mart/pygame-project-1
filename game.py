@@ -2,6 +2,8 @@ import sys
 
 import pygame
 import configparser
+from pygame_menu import Menu
+# import os
 
 
 class Game:
@@ -9,10 +11,15 @@ class Game:
         pygame.init()
         config = configparser.ConfigParser()
         config.read('example.conf')
-        self.size = int(config['GRAPHICS']['width']), int(config['GRAPHICS']['height'])
-        self.screen = pygame.display.set_mode(self.size)
+        if bool(config['GRAPHICS']['is_fullscreen']):
+            self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+            self.size = self.screen.get_size()
+        else:
+            self.size = int(config['GRAPHICS']['width']), int(config['GRAPHICS']['height'])
+            self.screen = pygame.display.set_mode(self.size)
         self.fps = int(config['GRAPHICS']['fps'])
         self.frame_clock = pygame.time.Clock()
+        # self.in_start_screen = True
 
         self.render_queue = []  # список всех групп, которые будут отрисованы в следующий кадр
 
@@ -22,13 +29,15 @@ class Game:
         while True:
             self.frame_clock.tick(self.fps)
             self.screen.fill(pygame.Color('black'))
-            for event in pygame.event.get():
+            events = pygame.event.get()
+            for event in events:
                 if event.type in self.subscribers:
-                    self.subscribers[event.type](event)
+                    for fun in self.subscribers[event.type]:
+                        fun(event)
                 if event.type == pygame.QUIT:
                     sys.exit()
             for group in self.render_queue:
-                group.update()
+                group.update(events)
                 group.draw(self.screen)
             pygame.display.flip()
 
@@ -51,4 +60,11 @@ class Game:
         self.subscribers[event_type].append(callback)
 
     def unsubscribe(self, event_type, callback):
-        self.subscribers[event_type].remove(callback)
+        try:
+            self.subscribers[event_type].remove(callback)
+        except Exception as err:
+            pass
+
+    def terminate(self):
+        pygame.quit()
+        sys.exit()
