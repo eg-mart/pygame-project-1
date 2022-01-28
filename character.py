@@ -22,7 +22,7 @@ class Character(Moveable):
     def __init__(self, level_manager):
         super().__init__()
         self.image = pygame.image.load(self.IMG_STATIC).convert_alpha()
-        self.image = pygame.transform.scale(self.image, (48, 48))
+        self.image = pygame.transform.scale(self.image, (64, 64))
         self.rect = pygame.rect.Rect(10, 0, 44, 64)
 
         self.level_manager = level_manager
@@ -33,7 +33,7 @@ class Character(Moveable):
         self.frame_duration = 0
         self.frame = 0
 
-        self.velocity = 1.5
+        self.velocity = 1.6
 
     def update(self):
         if self.animate:
@@ -44,7 +44,7 @@ class Character(Moveable):
                 self.frame_duration = 0
         else:
             self.image = pygame.image.load(self.IMG_STATIC).convert_alpha()
-        self.image = pygame.transform.scale(self.image, (48, 48))
+        self.image = pygame.transform.scale(self.image, (64, 64))
 
         self.animate = False
         
