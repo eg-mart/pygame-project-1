@@ -2,6 +2,7 @@ import sys
 
 import pygame
 import configparser
+from pygame_menu import Menu
 # import os
 
 
@@ -10,9 +11,12 @@ class Game:
         pygame.init()
         config = configparser.ConfigParser()
         config.read('example.conf')
-        self.size = int(config['GRAPHICS']['width']), int(config['GRAPHICS']['height'])
-        # self.screen = pygame.display.set_mode(self.size)
-        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        if bool(config['GRAPHICS']['is_fullscreen']):
+            self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+            self.size = self.screen.get_size()
+        else:
+            self.size = int(config['GRAPHICS']['width']), int(config['GRAPHICS']['height'])
+            self.screen = pygame.display.set_mode(self.size)
         self.fps = int(config['GRAPHICS']['fps'])
         self.frame_clock = pygame.time.Clock()
         # self.in_start_screen = True
@@ -25,15 +29,19 @@ class Game:
         while True:
             self.frame_clock.tick(self.fps)
             self.screen.fill(pygame.Color('black'))
-            for event in pygame.event.get():
+            events = pygame.event.get()
+            for event in events:
                 if event.type in self.subscribers:
                     for fun in self.subscribers[event.type]:
                         fun(event)
                 if event.type == pygame.QUIT:
                     sys.exit()
             for group in self.render_queue:
-                group.update()
+                # if issubclass(type(group), Menu):
+                #     group.mainloop(self.screen)
+                group.update(events)
                 group.draw(self.screen)
+                # print('Ok')
             pygame.display.flip()
 
     def render(self, group):
@@ -55,7 +63,10 @@ class Game:
         self.subscribers[event_type].append(callback)
 
     def unsubscribe(self, event_type, callback):
-        self.subscribers[event_type].remove(callback)
+        try:
+            self.subscribers[event_type].remove(callback)
+        except Exception as err:
+            pass
 
     def terminate(self):
         pygame.quit()

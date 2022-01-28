@@ -18,7 +18,7 @@ class LevelManager:
         self.map_manager.draw(surface)
         surface.blit(self.character.image, self.character.rect)
 
-    def update(self):
+    def update(self, events):
         self.map_manager.update()
         self.character.update()
 
@@ -55,7 +55,6 @@ class LevelManager:
         self.character.rect.y = character_pos.y
 
         self.map_manager.load_level(level_name)
-        print(self.map_manager)
 
     def collide(self, sprite):
         return self.map_manager.collide(sprite)
