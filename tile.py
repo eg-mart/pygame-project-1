@@ -1,8 +1,8 @@
 import pygame
 
 
-TILE_WIDTH = 32
-TILE_HEIGHT = 32
+TILE_WIDTH = 64
+TILE_HEIGHT = 64
 # Я не придумал, как это лучше сделать, так что пусть будут глобальныи константами
 
 
@@ -10,6 +10,7 @@ class Tile(pygame.sprite.Sprite):
     def __init__(self, x, y, image, animation):
         super().__init__()
         self.image = image
+        self.image = pygame.transform.scale(self.image, (64, 64))
         self.rect = image.get_rect()
         self.rect.x = x * TILE_WIDTH
         self.rect.y = y * TILE_HEIGHT
