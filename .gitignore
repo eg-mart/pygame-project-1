@@ -1,3 +1,8 @@
 ../PyGameProject/venv
 .idea
 temp.py
+venv
+.idea
+__pycache__
+art_development
+.vscode
