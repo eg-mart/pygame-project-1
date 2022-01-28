@@ -15,6 +15,7 @@ class LevelManager:
         self.next_level = None
 
     def draw(self, surface):
+        surface.fill("#" + self.map_manager.bg_color[3:] + self.map_manager.bg_color[1:3])
         self.map_manager.draw(surface)
         surface.blit(self.character.image, self.character.rect)
 

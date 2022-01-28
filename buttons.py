@@ -1,6 +1,3 @@
-from pygame_menu.widgets import Button
-from pygame_menu import BaseImage
-from pygame_menu._decorator import Decorator
 from pygame import SYSTEM_CURSOR_HAND
 
 

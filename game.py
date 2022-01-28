@@ -37,11 +37,8 @@ class Game:
                 if event.type == pygame.QUIT:
                     sys.exit()
             for group in self.render_queue:
-                # if issubclass(type(group), Menu):
-                #     group.mainloop(self.screen)
                 group.update(events)
                 group.draw(self.screen)
-                # print('Ok')
             pygame.display.flip()
 
     def render(self, group):
