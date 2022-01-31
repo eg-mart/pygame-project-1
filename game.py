@@ -12,14 +12,13 @@ class Game:
         config = configparser.ConfigParser()
         config.read('example.conf')
         if bool(config['GRAPHICS']['is_fullscreen']):
-            self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+            self.screen = pygame.display.set_mode((0    , 0), pygame.FULLSCREEN)
             self.size = self.screen.get_size()
         else:
             self.size = int(config['GRAPHICS']['width']), int(config['GRAPHICS']['height'])
             self.screen = pygame.display.set_mode(self.size)
         self.fps = int(config['GRAPHICS']['fps'])
         self.frame_clock = pygame.time.Clock()
-        # self.in_start_screen = True
 
         self.render_queue = []  # список всех групп, которые будут отрисованы в следующий кадр
 
