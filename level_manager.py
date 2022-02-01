@@ -28,6 +28,10 @@ class LevelManager:
         self.enemy_manager.update()
         self.character.update()
 
+        if len(self.enemy_manager) == 0 and self.enemy_manager.is_battle:
+            self.enemy_manager.is_battle = False
+            self.complete_room()
+
         self.apply_camera(*self.map_manager)
         self.apply_camera(*self.enemy_manager)
         self.apply_camera(*self.enemy_manager.triggers)
@@ -81,3 +85,6 @@ class LevelManager:
     
     def get_enemies(self):
         return self.enemy_manager
+    
+    def complete_room(self):
+        self.map_manager.open_doors()

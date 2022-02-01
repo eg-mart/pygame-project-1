@@ -10,6 +10,7 @@ class EnemyManager(pygame.sprite.Group):
 
         self.trigger_data = dict()
         self.triggers = pygame.sprite.Group()
+        self.is_battle = False
     
     def load_level(self, level_name):
         fullname = os.path.join('levels', level_name + '.tmx')
@@ -52,6 +53,7 @@ class EnemyManager(pygame.sprite.Group):
         for trigger in triggered:
             self.spawn(self.trigger_data[trigger])
             self.trigger_data[trigger] = []
+            self.is_battle = True
 
     def collide(self, sprite):
         for enemy in self:
