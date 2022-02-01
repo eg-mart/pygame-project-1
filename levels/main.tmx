@@ -23,25 +23,25 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="7" source="basement.tsx"/>
- <tileset firstgid="23" source="basement_new.tsx"/>
+ <tileset firstgid="8" source="basement.tsx"/>
+ <tileset firstgid="24" source="basement_new.tsx"/>
  <layer id="1" name="default" width="15" height="15">
   <data encoding="csv">
-35,35,35,35,35,35,35,35,35,35,35,35,35,35,35,
-35,23,24,24,24,24,24,25,35,23,24,24,24,25,35,
-35,34,26,46,46,46,46,47,35,34,35,35,35,36,35,
-35,34,36,35,35,35,35,35,35,34,35,35,35,36,35,
-35,34,37,24,24,24,24,25,35,45,46,46,46,36,35,
-35,34,35,35,35,35,35,36,35,35,35,35,35,49,35,
-35,34,35,35,35,35,35,36,35,23,24,24,24,42,35,
-35,34,35,35,35,35,35,36,35,34,35,35,35,36,35,
-35,34,35,35,35,35,35,36,35,34,35,35,35,36,35,
-35,34,35,35,35,35,35,36,35,34,35,35,35,36,35,
-35,34,26,46,46,46,46,47,35,34,35,35,35,36,35,
-35,34,36,35,35,35,35,35,35,34,35,35,35,36,35,
-35,34,37,24,24,24,24,24,24,38,35,35,35,36,35,
-35,45,46,46,46,46,46,46,46,46,46,46,46,47,35,
-35,35,35,35,35,35,35,35,35,35,35,35,35,35,35
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36,
+36,24,25,25,25,25,25,26,36,24,25,25,25,26,36,
+36,35,27,47,47,47,47,48,36,35,36,36,36,37,36,
+36,35,37,36,36,36,36,36,36,35,36,36,36,37,36,
+36,35,38,25,25,25,25,26,36,46,47,47,47,37,36,
+36,35,36,36,36,36,36,37,36,36,36,36,36,50,36,
+36,35,36,36,36,36,36,37,36,24,25,25,25,43,36,
+36,35,36,36,36,36,36,37,36,35,36,36,36,37,36,
+36,35,36,36,36,36,36,37,36,35,36,36,36,37,36,
+36,35,36,36,36,36,36,37,36,35,36,36,36,37,36,
+36,35,27,47,47,47,47,48,36,35,36,36,36,37,36,
+36,35,37,36,36,36,36,36,36,35,36,36,36,37,36,
+36,35,38,25,25,25,25,25,25,39,36,36,36,37,36,
+36,46,47,47,47,47,47,47,47,47,47,47,47,48,36,
+36,36,36,36,36,36,36,36,36,36,36,36,36,36,36
 </data>
  </layer>
  <layer id="5" name="collide" width="15" height="15">
@@ -49,21 +49,21 @@
    <property name="collide" type="bool" value="true"/>
   </properties>
   <data encoding="csv">
-56,57,57,57,57,57,57,57,81,57,57,57,57,57,58,
-67,0,0,0,0,0,0,0,90,0,0,0,0,0,69,
-67,0,0,0,0,0,0,0,90,0,0,0,0,0,69,
-67,0,0,111,101,101,101,101,93,0,0,0,0,0,69,
-67,0,0,0,0,0,0,0,90,0,0,0,0,0,69,
-67,0,0,0,0,0,0,0,103,101,101,101,112,0,69,
-67,0,0,0,0,0,0,0,90,0,0,0,0,0,69,
-67,0,0,0,0,0,0,0,90,0,0,0,0,0,69,
-67,0,0,0,0,0,0,0,90,0,0,0,0,0,69,
-67,0,0,0,0,0,0,0,90,0,0,0,0,0,69,
-67,0,0,0,0,0,0,0,90,0,0,0,0,0,69,
-67,0,0,111,101,101,101,101,106,0,0,0,0,0,69,
-67,0,0,0,0,0,0,0,0,0,0,0,0,0,69,
-67,0,0,0,0,0,0,0,0,0,0,0,0,0,69,
-78,79,79,79,79,79,79,79,79,79,79,79,79,79,80
+57,58,58,58,58,58,58,58,82,58,58,58,58,58,59,
+68,0,0,0,0,0,0,0,91,0,0,0,0,0,70,
+68,0,0,0,0,0,0,0,91,0,0,0,0,0,70,
+68,0,0,112,102,102,102,102,94,0,0,0,0,0,70,
+68,0,0,0,0,0,0,0,91,0,0,0,0,0,70,
+68,0,0,0,0,0,0,0,104,102,102,102,113,0,70,
+68,0,0,0,0,0,0,0,91,0,0,0,0,0,70,
+68,0,0,0,0,0,0,0,91,0,0,0,0,0,70,
+68,0,0,0,0,0,0,0,91,0,0,0,0,0,70,
+68,0,0,0,0,0,0,0,91,0,0,0,0,0,70,
+68,0,0,0,0,0,0,0,91,0,0,0,0,0,70,
+68,0,0,112,102,102,102,102,107,0,0,0,0,0,70,
+68,0,0,0,0,0,0,0,0,0,0,0,0,0,70,
+68,0,0,0,0,0,0,0,0,0,0,0,0,0,70,
+79,80,80,80,80,80,80,80,80,80,80,80,80,80,81
 </data>
  </layer>
  <layer id="7" name="door1" width="15" height="15">
@@ -144,7 +144,7 @@
     <property name="range" type="int" value="10"/>
     <property name="strength" type="int" value="1"/>
     <property name="trigger" type="object" value="4"/>
-    <property name="velocity" type="float" value="1.5"/>
+    <property name="velocity" type="float" value="3"/>
    </properties>
   </object>
   <object id="6" name="goblin" x="633" y="127.5" width="44" height="36">
@@ -154,7 +154,7 @@
     <property name="range" type="int" value="10"/>
     <property name="strength" type="int" value="1"/>
     <property name="trigger" type="object" value="4"/>
-    <property name="velocity" type="float" value="1.5"/>
+    <property name="velocity" type="float" value="3"/>
    </properties>
   </object>
   <object id="7" name="goblin" x="625" y="230.5" width="44" height="36">
@@ -164,7 +164,7 @@
     <property name="range" type="int" value="10"/>
     <property name="strength" type="int" value="1"/>
     <property name="trigger" type="object" value="4"/>
-    <property name="velocity" type="float" value="1.5"/>
+    <property name="velocity" type="float" value="3"/>
    </properties>
   </object>
   <object id="12" name="goblin" x="738" y="479" width="44" height="36">
@@ -174,7 +174,7 @@
     <property name="range" type="int" value="10"/>
     <property name="strength" type="int" value="1"/>
     <property name="trigger" type="object" value="15"/>
-    <property name="velocity" type="float" value="1.5"/>
+    <property name="velocity" type="float" value="3"/>
    </properties>
   </object>
   <object id="13" name="goblin" x="609" y="500" width="44" height="36">
@@ -184,7 +184,7 @@
     <property name="range" type="int" value="10"/>
     <property name="strength" type="int" value="1"/>
     <property name="trigger" type="object" value="15"/>
-    <property name="velocity" type="float" value="1.5"/>
+    <property name="velocity" type="float" value="3"/>
    </properties>
   </object>
   <object id="14" name="goblin" x="601" y="603" width="44" height="36">
@@ -194,7 +194,7 @@
     <property name="range" type="int" value="10"/>
     <property name="strength" type="int" value="1"/>
     <property name="trigger" type="object" value="15"/>
-    <property name="velocity" type="float" value="1.5"/>
+    <property name="velocity" type="float" value="3"/>
    </properties>
   </object>
   <object id="17" name="goblin" x="707" y="549" width="44" height="36">
@@ -204,7 +204,7 @@
     <property name="range" type="int" value="10"/>
     <property name="strength" type="int" value="1"/>
     <property name="trigger" type="object" value="15"/>
-    <property name="velocity" type="float" value="1.5"/>
+    <property name="velocity" type="float" value="3"/>
    </properties>
   </object>
   <object id="18" name="goblin" x="686" y="648" width="44" height="36">
@@ -214,7 +214,7 @@
     <property name="range" type="int" value="10"/>
     <property name="strength" type="int" value="1"/>
     <property name="trigger" type="object" value="15"/>
-    <property name="velocity" type="float" value="1.5"/>
+    <property name="velocity" type="float" value="3"/>
    </properties>
   </object>
  </objectgroup>
