@@ -19,18 +19,27 @@ def load_animation(animation, shuffle):
 
 
 class AnimatedSprite(pygame.sprite.Sprite):
-    def __init__(self, animation_name, shuffle=False):
+    def __init__(self, animation_name=None, shuffle=False):
         super(AnimatedSprite, self).__init__()
-        self.animation = load_animation(animation_name, shuffle)
+
         self.frame_duration = 0
         self.frame = 0
         self.animation_clock = pygame.time.Clock()
-        self.image = self.animation[self.frame][0]
-        self.rect = self.image.get_rect()
-        self.size = self.width, self.height = self.rect.w, self.rect.h
+
+        if animation_name is not None:
+            self.animation = load_animation(animation_name, shuffle)
+            self.image = self.animation[self.frame][0]
+            self.rect = self.image.get_rect()
+            self.size = self.width, self.height = self.rect.w, self.rect.h
 
     def draw(self, surface, pos):
         surface.blit(self.image, pos)
+    
+    def set_animation(self, animation_name, shuffle=False):
+        self.animation = load_animation(animation_name, shuffle)
+        self.image = self.animation[self.frame][0]
+        self.rect = self.image.get_rect()
+        self.size = self.width, self.height = self.rect.w, self.rect.h
 
     def update(self):
         self.frame_duration += self.animation_clock.tick()

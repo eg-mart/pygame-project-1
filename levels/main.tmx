@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="15" height="15" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="4">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="15" height="15" tilewidth="64" tileheight="64" infinite="0" nextlayerid="9" nextobjectid="19">
  <properties>
   <property name="bg_color" type="color" value="#ff302c2e"/>
  </properties>
@@ -47,18 +47,6 @@
 36,36,36,36,36,36,36,36,36,36,36,36,36,36,36
 </data>
  </layer>
- <objectgroup id="6" name="enemies">
-  <object id="6" name="goblin" x="122" y="455.5" width="44" height="36">
-   <properties>
-    <property name="health" type="int" value="100"/>
-    <property name="img" value="enemy.png"/>
-    <property name="range" type="int" value="10"/>
-    <property name="strength" type="int" value="1"/>
-    <property name="trigger" type="object" value="5"/>
-    <property name="velocity" type="float" value="1.5"/>
-   </properties>
-  </object>
- </objectgroup>
  <layer id="5" name="collide" width="15" height="15">
   <properties>
    <property name="collide" type="bool" value="true"/>
@@ -81,15 +69,144 @@
 79,80,80,80,80,80,80,80,80,80,80,80,80,80,81
 </data>
  </layer>
+ <layer id="7" name="door1" width="15" height="15">
+  <properties>
+   <property name="door" type="bool" value="true"/>
+   <property name="trigger" type="object" value="4"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,68,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="8" name="door2" width="15" height="15">
+  <properties>
+   <property name="door" type="bool" value="true"/>
+   <property name="trigger" type="object" value="15"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,68,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,68,68,68,68,68,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="6" name="enemies">
+  <object id="6" name="goblin" x="762" y="106.5" width="44" height="36">
+   <properties>
+    <property name="health" type="int" value="100"/>
+    <property name="img" value="enemy.png"/>
+    <property name="range" type="int" value="10"/>
+    <property name="strength" type="int" value="1"/>
+    <property name="trigger" type="object" value="4"/>
+    <property name="velocity" type="float" value="1.5"/>
+   </properties>
+  </object>
+  <object id="6" name="goblin" x="633" y="127.5" width="44" height="36">
+   <properties>
+    <property name="health" type="int" value="100"/>
+    <property name="img" value="enemy.png"/>
+    <property name="range" type="int" value="10"/>
+    <property name="strength" type="int" value="1"/>
+    <property name="trigger" type="object" value="4"/>
+    <property name="velocity" type="float" value="1.5"/>
+   </properties>
+  </object>
+  <object id="7" name="goblin" x="625" y="230.5" width="44" height="36">
+   <properties>
+    <property name="health" type="int" value="100"/>
+    <property name="img" value="enemy.png"/>
+    <property name="range" type="int" value="10"/>
+    <property name="strength" type="int" value="1"/>
+    <property name="trigger" type="object" value="4"/>
+    <property name="velocity" type="float" value="1.5"/>
+   </properties>
+  </object>
+  <object id="12" name="goblin" x="738" y="479" width="44" height="36">
+   <properties>
+    <property name="health" type="int" value="100"/>
+    <property name="img" value="enemy.png"/>
+    <property name="range" type="int" value="10"/>
+    <property name="strength" type="int" value="1"/>
+    <property name="trigger" type="object" value="15"/>
+    <property name="velocity" type="float" value="1.5"/>
+   </properties>
+  </object>
+  <object id="13" name="goblin" x="609" y="500" width="44" height="36">
+   <properties>
+    <property name="health" type="int" value="100"/>
+    <property name="img" value="enemy.png"/>
+    <property name="range" type="int" value="10"/>
+    <property name="strength" type="int" value="1"/>
+    <property name="trigger" type="object" value="15"/>
+    <property name="velocity" type="float" value="1.5"/>
+   </properties>
+  </object>
+  <object id="14" name="goblin" x="601" y="603" width="44" height="36">
+   <properties>
+    <property name="health" type="int" value="100"/>
+    <property name="img" value="enemy.png"/>
+    <property name="range" type="int" value="10"/>
+    <property name="strength" type="int" value="1"/>
+    <property name="trigger" type="object" value="15"/>
+    <property name="velocity" type="float" value="1.5"/>
+   </properties>
+  </object>
+  <object id="17" name="goblin" x="707" y="549" width="44" height="36">
+   <properties>
+    <property name="health" type="int" value="100"/>
+    <property name="img" value="enemy.png"/>
+    <property name="range" type="int" value="10"/>
+    <property name="strength" type="int" value="1"/>
+    <property name="trigger" type="object" value="15"/>
+    <property name="velocity" type="float" value="1.5"/>
+   </properties>
+  </object>
+  <object id="18" name="goblin" x="686" y="648" width="44" height="36">
+   <properties>
+    <property name="health" type="int" value="100"/>
+    <property name="img" value="enemy.png"/>
+    <property name="range" type="int" value="10"/>
+    <property name="strength" type="int" value="1"/>
+    <property name="trigger" type="object" value="15"/>
+    <property name="velocity" type="float" value="1.5"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup id="4" name="Triggers">
   <object id="1" name="next_level_trigger" x="421" y="102" width="80" height="86">
    <properties>
     <property name="next_level_name" value="next"/>
    </properties>
   </object>
-  <object id="2" name="character" x="356.333" y="609.667">
+  <object id="2" name="character" x="768.333" y="827.667">
    <point/>
   </object>
-  <object id="5" name="goblin_spawn" x="237.167" y="509.167" width="65" height="59.5"/>
+  <object id="4" name="door1" x="832" y="201" width="53" height="50"/>
+  <object id="15" name="door2" x="808" y="573.5" width="53" height="50"/>
  </objectgroup>
 </map>
