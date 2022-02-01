@@ -1,47 +1,32 @@
 import os.path
+from pickle import FALSE
 
 import pygame
 from os import listdir
 from os.path import isfile, join
+from animated_sprite import AnimatedSprite
 from moveable import Moveable
 
 
-def load_animation(animation):
-    files = [f for f in listdir(animation) if isfile(join(animation, f))]
-    frames = []
-    for file in sorted(files):
-        frame = (pygame.image.load(join(animation, file)).convert_alpha(), 125)
-        frames.append(frame)
-    return frames
-
-
-class Character(Moveable):
+class Character(AnimatedSprite, Moveable):
     IMG_STATIC = join('sprites', 'character.png')
-    ANIM_WALK = join('sprites', 'character_forward')
+    ANIM_WALK = 'character_forward'
 
     def __init__(self, level_manager):
         super().__init__()
+        super().set_animation(self.ANIM_WALK)
         self.image = pygame.image.load(self.IMG_STATIC).convert_alpha()
         self.image = pygame.transform.scale(self.image, (64, 64))
         self.rect = pygame.rect.Rect(10, 0, 44, 64)
 
         self.level_manager = level_manager
-
-        self.animation = load_animation(self.ANIM_WALK)
         self.animate = False
-        self.animation_clock = pygame.time.Clock()
-        self.frame_duration = 0
-        self.frame = 0
 
         self.velocity = 1.6
 
     def update(self):
         if self.animate:
-            self.frame_duration += self.animation_clock.tick()
-            if len(self.animation) > 0 and self.frame_duration >= self.animation[self.frame][1]:
-                self.frame = (self.frame + 1) % len(self.animation)
-                self.image = self.animation[self.frame][0]
-                self.frame_duration = 0
+            super().update()
         else:
             self.image = pygame.image.load(self.IMG_STATIC).convert_alpha()
         self.image = pygame.transform.scale(self.image, (64, 64))
