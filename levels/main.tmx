@@ -3,7 +3,7 @@
  <properties>
   <property name="bg_color" type="color" value="#ff302c2e"/>
  </properties>
- <tileset firstgid="1" name="test" tilewidth="32" tileheight="32" tilecount="4" columns="0">
+ <tileset firstgid="1" name="test" tilewidth="32" tileheight="32" tilecount="3" columns="0">
   <grid orientation="orthogonal" width="1" height="1"/>
   <tile id="3" type="grass">
    <image width="32" height="32" source="../sprites/1.png"/>
@@ -21,9 +21,6 @@
     <frame tileid="4" duration="190"/>
     <frame tileid="5" duration="190"/>
    </animation>
-  </tile>
-  <tile id="6">
-   <image source="../sprites/4.png"/>
   </tile>
  </tileset>
  <tileset firstgid="8" source="basement.tsx"/>
