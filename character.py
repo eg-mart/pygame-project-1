@@ -23,6 +23,7 @@ class Character(AnimatedSprite, Moveable):
         self.animate = False
 
         self.velocity = 1.6
+        self.range = 5
 
     def update(self):
         if self.animate:
@@ -36,6 +37,7 @@ class Character(AnimatedSprite, Moveable):
         dx = 0
         dy = 0
         keys = pygame.key.get_pressed()
+        mouse = pygame.mouse.get_pressed()
         if keys[pygame.K_a]:
             dx -= self.velocity
         if keys[pygame.K_d]:
@@ -44,6 +46,8 @@ class Character(AnimatedSprite, Moveable):
             dy -= self.velocity
         if keys[pygame.K_s]:
             dy += self.velocity
+        if mouse[pygame.BUTTON_LEFT]:
+            self.attack()
         self.x += dx
 
         if keys[pygame.K_a] or keys[pygame.K_d] or keys[pygame.K_w] or keys[pygame.K_s]:
@@ -56,3 +60,8 @@ class Character(AnimatedSprite, Moveable):
 
         if self.level_manager.collide(self):
             self.y -= dy
+    
+    def attack(self):
+        for enemy in self.level_manager.get_enemies():
+            if (enemy.x - self.x) ** 2 + (enemy.y - self.y) ** 2 <= self.range:
+                enemy.kill()

@@ -78,3 +78,6 @@ class LevelManager:
 
     def collide(self, sprite):
         return self.map_manager.collide(sprite)
+    
+    def get_enemies(self):
+        return self.enemy_manager
