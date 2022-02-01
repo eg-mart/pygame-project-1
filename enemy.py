@@ -25,3 +25,20 @@ class Enemy(Moveable):
         print(self.health)
         if self.health <= 0:
             self.kill()
+
+    def step(self, character):
+        l_x = abs(character.x - self.x)
+        l_y = abs(character.y - self.y)
+        similarity_coef = self.velocity ** 2 / (l_x ** 2 + l_y ** 2)
+        dx, dy = l_x * similarity_coef, l_y * similarity_coef
+        if character.x > self.x:
+            self.x += dx
+        else:
+            self.x -= dx
+        if character.y > self.y:
+            self.y += dy
+        else:
+            self.y -= dy
+
+    def update(self, character):
+        self.step(character)
