@@ -12,6 +12,8 @@ class MapManager(pygame.sprite.Group):
         self.enemy_tiles = pygame.sprite.Group()  # группа тайлов, которые атакуют игрока при прохождении
         self.door_tiles_dict = dict()  # по триггеру слоя заграждения можно получить список спрайтов из него
         self.door_triggers = pygame.sprite.Group()
+        self.locked = pygame.sprite.Group()
+        self.locked_triggers = pygame.sprite.Group()
 
         self.bg_color = '#000000'
 
@@ -27,6 +29,8 @@ class MapManager(pygame.sprite.Group):
         self.door_triggers.empty()
         self.door_tiles_dict = dict()
         self.closed_doors = []
+        self.locked = dict()
+        self.locked_triggers.empty()
 
         for layer_index in tmx_map.visible_tile_layers:
             layer = tmx_map.layers[layer_index]
@@ -50,6 +54,14 @@ class MapManager(pygame.sprite.Group):
                 self.collider_tiles.add(layer_tiles)
             if layer.properties.get('enemy', False):
                 self.enemy_tiles.add(layer_tiles)
+            if layer.properties.get('unlockable', False):
+                trigger = tmx_map.get_object_by_id(layer.properties['trigger'])
+                rect = pygame.rect.Rect(trigger.x, trigger.y, trigger.width, trigger.height)
+                trigger_sprite = pygame.sprite.Sprite()
+                trigger_sprite.rect = rect
+                self.locked[trigger_sprite] = layer_tiles
+                self.locked_triggers.add(trigger_sprite)
+                self.collider_tiles.add(layer_tiles)
             if layer.properties.get('door', False):
                 trigger = tmx_map.get_object_by_id(layer.properties['trigger'])
                 rect = pygame.rect.Rect(trigger.x, trigger.y, trigger.width, trigger.height)
@@ -63,12 +75,19 @@ class MapManager(pygame.sprite.Group):
         self.bg_color = tmx_map.properties['bg_color']
 
     def collide(self, sprite):
-        active_triggers = pygame.sprite.spritecollide(sprite, self.door_triggers, False)
+        unlocked_triggers = pygame.sprite.spritecollide(sprite, self.locked_triggers, True)
+        active_triggers = pygame.sprite.spritecollide(sprite, self.door_triggers, True)
+
         for trigger in active_triggers:
             self.add(self.door_tiles_dict[trigger])
             self.collider_tiles.add(self.door_tiles_dict[trigger])
             self.closed_doors += self.door_tiles_dict[trigger]
             self.door_tiles_dict[trigger] = []
+        for trigger in unlocked_triggers:
+            for s in self.locked[trigger]:
+                s.kill()
+            self.locked[trigger] = []
+            
         return pygame.sprite.spritecollideany(sprite, self.collider_tiles)
     
     def open_doors(self):
