@@ -16,8 +16,8 @@ class Character(AnimatedSprite, Moveable):
         super().__init__()
         super().set_animation(self.ANIM_WALK)
         self.image = pygame.image.load(self.IMG_STATIC).convert_alpha()
-        self.image = pygame.transform.scale(self.image, (64, 64))
-        self.rect = pygame.rect.Rect(10, 0, 44, 64)
+        self.image = pygame.transform.scale(self.image, (26, 64))
+        self.rect = pygame.rect.Rect(0, 0, self.image.get_width(), 64)
 
         self.level_manager = level_manager
         self.animate = False
@@ -29,7 +29,7 @@ class Character(AnimatedSprite, Moveable):
             super().update()
         else:
             self.image = pygame.image.load(self.IMG_STATIC).convert_alpha()
-        self.image = pygame.transform.scale(self.image, (64, 64))
+        self.image = pygame.transform.scale(self.image, (26, 64))
 
         self.animate = False
         
