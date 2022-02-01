@@ -36,6 +36,7 @@ class LevelManager:
         self.apply_camera(*self.enemy_manager)
         self.apply_camera(*self.enemy_manager.triggers)
         self.apply_camera(*self.map_manager.door_triggers)
+        self.apply_camera(*self.map_manager.locked_triggers)
         for value in self.map_manager.door_tiles_dict.values():
             self.apply_camera(*value)
         for value in self.enemy_manager.trigger_data.values():
