@@ -5,7 +5,7 @@ from moveable import Moveable
 from os.path import join
 
 
-class Enemy(Moveable, AnimatedSprite):
+class Enemy(AnimatedSprite, Moveable):
     def __init__(self):
         super().__init__()
         self.health = 10
@@ -51,4 +51,5 @@ class Enemy(Moveable, AnimatedSprite):
             self.step(character)
             self.state = 'walking'
         if self.animation_name != self.animations[self.state]:
-            self.set_animation(self.animations[self.state])
+            self.set_animation(self.animations[self.state], duration=900, rnd=True)
+        super().update()

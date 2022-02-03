@@ -1,6 +1,6 @@
 from os import listdir
 from os.path import isfile, join
-from random import shuffle as shuffle_fun
+from random import shuffle as shuffle_fun, randint
 import pygame
 
 
@@ -37,11 +37,14 @@ class AnimatedSprite(pygame.sprite.Sprite):
     def draw(self, surface, pos):
         surface.blit(self.image, pos)
     
-    def set_animation(self, animation_name, shuffle=False, duration=1000):
+    def set_animation(self, animation_name, shuffle=False, duration=1000, rnd=False):
         self.duration = duration
+        self.animation_name = animation_name
         self.frame = 0
         self.frame_duration = 0
         self.animation = load_animation(animation_name, shuffle, self.duration)
+        if rnd:
+            self.frame = randint(0, len(self.animation) - 1)
         self.image = self.animation[self.frame][0]
         if self.rect is None:
             self.rect = self.image.get_rect()

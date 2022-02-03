@@ -25,7 +25,7 @@ class Character(AnimatedSprite, Moveable):
         self.level_manager = level_manager
         self.state = 'static'
 
-        self.velocity = 1.6
+        self.velocity = 3
         self.range = 16
         self.strength = 10
         self.attacking = False
