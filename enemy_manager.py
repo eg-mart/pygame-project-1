@@ -1,3 +1,5 @@
+from asyncio import current_task
+from threading import current_thread
 import pygame
 import os
 import pytmx
@@ -35,7 +37,8 @@ class EnemyManager(CameraAwareGroup):
             rect = pygame.rect.Rect(trigger_obj.x, trigger_obj.y, trigger_obj.width, trigger_obj.height)
             trigger = pygame.sprite.Sprite()
             trigger.rect = rect
-            self.triggers.add(trigger)
+            if trigger not in self.triggers.sprites():
+                self.triggers.add(trigger)
             self.trigger_ids[trigger] = enemy_obj.properties['trigger']
 
             enemy = Enemy()
@@ -69,15 +72,16 @@ class EnemyManager(CameraAwareGroup):
         save_data = dict()
         left_triggers = []
 
-        save_data['current_triggers'] = []
+        current_triggers = []
 
         for trigger in self.current_triggers:
-            save_data['current_triggers'].append(self.trigger_ids[trigger])
+            current_triggers.append(self.trigger_ids[trigger])
 
         for trigger in self.triggers:
             left_triggers.append(self.trigger_ids[trigger])
 
         save_data['triggers'] = left_triggers
+        save_data['current_triggers'] = current_triggers
 
         return save_data
 
@@ -87,10 +91,10 @@ class EnemyManager(CameraAwareGroup):
             if id in save_data['triggers']:
                 self.triggers.add(trigger)
             if id in save_data['current_triggers']:
+                self.spawn(self.trigger_data[trigger])
                 self.current_triggers.append(trigger)
                 self.trigger_data[trigger] = []
                 self.is_battle = True
-                self.spawn(self.trigger_data[trigger])
 
     def collide(self, sprite):
         for enemy in self:
