@@ -4,7 +4,7 @@ from random import shuffle as shuffle_fun
 import pygame
 
 
-def load_animation(animation, shuffle):
+def load_animation(animation, shuffle, duration):
     files = [f for f in listdir(join('sprites', animation)) if isfile(join('sprites', animation, f))]
     frames = []
     count = len(files)
@@ -13,7 +13,7 @@ def load_animation(animation, shuffle):
     else:
         files.sort()
     for file in files:
-        frame = (pygame.image.load(join('sprites', animation, file)).convert_alpha(), 1000 // count)
+        frame = (pygame.image.load(join('sprites', animation, file)).convert_alpha(), duration // count)
         frames.append(frame)
     return frames
 
@@ -25,9 +25,10 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self.frame_duration = 0
         self.frame = 0
         self.animation_clock = pygame.time.Clock()
+        self.duration = 1000
 
         if animation_name is not None:
-            self.animation = load_animation(animation_name, shuffle)
+            self.animation = load_animation(animation_name, shuffle, self.duration)
             self.image = self.animation[self.frame][0]
             self.rect = self.image.get_rect()
             self.size = self.width, self.height = self.rect.w, self.rect.h
@@ -35,10 +36,14 @@ class AnimatedSprite(pygame.sprite.Sprite):
     def draw(self, surface, pos):
         surface.blit(self.image, pos)
     
-    def set_animation(self, animation_name, shuffle=False):
-        self.animation = load_animation(animation_name, shuffle)
+    def set_animation(self, animation_name, shuffle=False, duration=1000):
+        self.duration = duration
+        self.frame = 0
+        self.frame_duration = 0
+        self.animation = load_animation(animation_name, shuffle, self.duration)
         self.image = self.animation[self.frame][0]
-        self.rect = self.image.get_rect()
+        if self.rect is None:
+            self.rect = self.image.get_rect()
         self.size = self.width, self.height = self.rect.w, self.rect.h
 
     def update(self):
