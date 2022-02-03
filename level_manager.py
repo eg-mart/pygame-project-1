@@ -5,6 +5,7 @@ from character import Character
 import os
 from moveable import Moveable
 from enemy_manager import EnemyManager
+import json
 
 
 class LevelManager:
@@ -14,6 +15,7 @@ class LevelManager:
         self.character = Character(self)
         self.level_trigger = None
         self.next_level = None
+        self.level_name = ''
     
     def camera_draw(self, surface, camera):
         surface.fill("#" + self.map_manager.bg_color[3:] + self.map_manager.bg_color[1:3])
@@ -27,15 +29,36 @@ class LevelManager:
         self.character.update()
 
         if len(self.enemy_manager) == 0 and self.enemy_manager.is_battle:
-            self.enemy_manager.is_battle = False
             self.complete_room()
 
         self.enemy_manager.check_triggers(self.character)
 
         if pygame.sprite.collide_rect(self.character, self.level_trigger):
             self.load_level(self.next_level)
+    
+    def load(self):
+        save_data = dict()
+        with open('data/save.json', 'r', encoding='utf8') as file:
+            save_data = json.load(file)
+        
+        self.load_level(save_data['level_manager']['level'])
+        self.character.load(save_data['character'])
+        self.map_manager.load(save_data['map_manager'])
+        self.enemy_manager.load(save_data['enemy_manager'])
+
+    def save(self):
+        save_data = dict()
+        save_data['character'] = self.character.save()
+        save_data['enemy_manager'] = self.enemy_manager.save()
+        save_data['map_manager'] = self.map_manager.save()
+        save_data['level_manager'] = dict()
+        save_data['level_manager']['level'] = self.level_name
+
+        with open('data/save.json', 'w', encoding='utf8') as file:
+            json.dump(save_data, file)
 
     def load_level(self, level_name):
+        self.level_name = level_name
         fullname = os.path.join('levels', level_name + '.tmx')
         if not os.path.isfile(fullname):
             raise FileNotFoundError(f'Level {level_name}.tmx does not exist')
@@ -61,4 +84,6 @@ class LevelManager:
         return self.enemy_manager
     
     def complete_room(self):
+        self.enemy_manager.is_battle = False
+        self.enemy_manager.current_triggers = []
         self.map_manager.open_doors()

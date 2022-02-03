@@ -28,6 +28,18 @@ class Character(AnimatedSprite, Moveable):
         self.weapon = Weapon()
         self.attacking = False
         self.health = 100
+    
+    def save(self):
+        save_data = dict()
+        save_data['health'] = self.health
+        save_data['x'] = self.x
+        save_data['y'] = self.y
+        return save_data
+    
+    def load(self, save_data):
+        self.health = save_data['health']
+        self.x = save_data['x']
+        self.y = save_data['y']
 
     def update(self):
         super().update()
