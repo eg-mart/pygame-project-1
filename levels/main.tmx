@@ -118,82 +118,98 @@
  <objectgroup id="6" name="enemies">
   <object id="6" name="goblin" x="762" y="106.5" width="44" height="36">
    <properties>
+    <property name="animations">{&quot;walking&quot;: &quot;goblin_walking&quot;,
+&quot;attacking&quot;: &quot;goblin_attacking&quot;}</property>
     <property name="health" type="int" value="100"/>
     <property name="img" value="enemy.png"/>
-    <property name="range" type="int" value="10"/>
+    <property name="range" type="int" value="32"/>
     <property name="strength" type="int" value="1"/>
     <property name="trigger" type="object" value="4"/>
-    <property name="velocity" type="float" value="1.5"/>
+    <property name="velocity" type="float" value="0.5"/>
    </properties>
   </object>
   <object id="6" name="goblin" x="633" y="127.5" width="44" height="36">
    <properties>
+    <property name="animations">{&quot;walking&quot;: &quot;goblin_walking&quot;,
+&quot;attacking&quot;: &quot;goblin_attacking&quot;}</property>
     <property name="health" type="int" value="100"/>
     <property name="img" value="enemy.png"/>
-    <property name="range" type="int" value="10"/>
+    <property name="range" type="int" value="32"/>
     <property name="strength" type="int" value="1"/>
     <property name="trigger" type="object" value="4"/>
-    <property name="velocity" type="float" value="1.5"/>
+    <property name="velocity" type="float" value="0.5"/>
    </properties>
   </object>
   <object id="7" name="goblin" x="625" y="230.5" width="44" height="36">
    <properties>
+    <property name="animations">{&quot;walking&quot;: &quot;goblin_walking&quot;,
+&quot;attacking&quot;: &quot;goblin_attacking&quot;}</property>
     <property name="health" type="int" value="100"/>
     <property name="img" value="enemy.png"/>
-    <property name="range" type="int" value="10"/>
+    <property name="range" type="int" value="32"/>
     <property name="strength" type="int" value="1"/>
     <property name="trigger" type="object" value="4"/>
-    <property name="velocity" type="float" value="1.5"/>
+    <property name="velocity" type="float" value="0.5"/>
    </properties>
   </object>
   <object id="12" name="goblin" x="738" y="479" width="44" height="36">
    <properties>
+    <property name="animations">{&quot;walking&quot;: &quot;goblin_walking&quot;,
+&quot;attacking&quot;: &quot;goblin_attacking&quot;}</property>
     <property name="health" type="int" value="100"/>
     <property name="img" value="enemy.png"/>
-    <property name="range" type="int" value="10"/>
+    <property name="range" type="int" value="32"/>
     <property name="strength" type="int" value="1"/>
     <property name="trigger" type="object" value="15"/>
-    <property name="velocity" type="float" value="1.5"/>
+    <property name="velocity" type="float" value="0.5"/>
    </properties>
   </object>
-  <object id="13" name="goblin" x="609" y="500" width="44" height="36">
+  <object id="13" name="goblin" x="614.667" y="488" width="44" height="36">
    <properties>
+    <property name="animations">{&quot;walking&quot;: &quot;goblin_walking&quot;,
+&quot;attacking&quot;: &quot;goblin_attacking&quot;}</property>
     <property name="health" type="int" value="100"/>
     <property name="img" value="enemy.png"/>
-    <property name="range" type="int" value="10"/>
+    <property name="range" type="int" value="32"/>
     <property name="strength" type="int" value="1"/>
     <property name="trigger" type="object" value="15"/>
-    <property name="velocity" type="float" value="1.5"/>
+    <property name="velocity" type="float" value="0.5"/>
    </properties>
   </object>
   <object id="14" name="goblin" x="601" y="603" width="44" height="36">
    <properties>
+    <property name="animations">{&quot;walking&quot;: &quot;goblin_walking&quot;,
+&quot;attacking&quot;: &quot;goblin_attacking&quot;}</property>
     <property name="health" type="int" value="100"/>
     <property name="img" value="enemy.png"/>
-    <property name="range" type="int" value="10"/>
+    <property name="range" type="int" value="32"/>
     <property name="strength" type="int" value="1"/>
     <property name="trigger" type="object" value="15"/>
-    <property name="velocity" type="float" value="1.5"/>
+    <property name="velocity" type="float" value="0.5"/>
    </properties>
   </object>
-  <object id="17" name="goblin" x="707" y="549" width="44" height="36">
+  <object id="17" name="goblin" x="681.667" y="525" width="44" height="36">
    <properties>
+    <property name="animations">{&quot;walking&quot;: &quot;goblin_walking&quot;,
+&quot;attacking&quot;: &quot;goblin_attacking&quot;}</property>
     <property name="health" type="int" value="100"/>
     <property name="img" value="enemy.png"/>
-    <property name="range" type="int" value="10"/>
+    <property name="range" type="int" value="32"/>
     <property name="strength" type="int" value="1"/>
     <property name="trigger" type="object" value="15"/>
-    <property name="velocity" type="float" value="1.5"/>
+    <property name="velocity" type="float" value="0.5"/>
    </properties>
   </object>
   <object id="18" name="goblin" x="686" y="648" width="44" height="36">
    <properties>
+    <property name="animations">{&quot;walking&quot;: &quot;goblin_walking&quot;,
+&quot;attacking&quot;: &quot;goblin_attacking&quot;}</property>
     <property name="health" type="int" value="100"/>
     <property name="img" value="enemy.png"/>
-    <property name="range" type="int" value="10"/>
+    <property name="range" type="int" value="32"/>
     <property name="strength" type="int" value="1"/>
     <property name="trigger" type="object" value="15"/>
-    <property name="velocity" type="float" value="1.5"/>
+    <property name="velocity" type="float" value="0.5"/>
    </properties>
   </object>
  </objectgroup>
@@ -203,11 +219,18 @@
     <property name="next_level_name" value="next"/>
    </properties>
   </object>
-  <object id="2" name="character" x="309.666" y="477">
+  <object id="2" name="character" x="385.666" y="806.333">
    <point/>
   </object>
   <object id="4" name="door1" x="832" y="201" width="53" height="50"/>
   <object id="15" name="door2" x="808" y="573.5" width="53" height="50"/>
-  <object id="19" name="door3" x="590.667" y="88" width="44" height="41.3333"/>
+  <object id="19" name="door3" x="590.667" y="88" width="44" height="41.3333">
+   <properties>
+    <property name="animations">{&quot;walking&quot;: &quot;goblin_walking&quot;,
+&quot;attacking&quot;: &quot;goblin_attacking&quot;}</property>
+    <property name="range" type="int" value="32"/>
+    <property name="velocity" type="float" value="0.5"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

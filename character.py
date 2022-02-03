@@ -1,11 +1,10 @@
 import os.path
-from pickle import FALSE
-
 import pygame
 from os import listdir
 from os.path import isfile, join
 from animated_sprite import AnimatedSprite
 from moveable import Moveable
+from weapon import Weapon
 
 
 class Character(AnimatedSprite, Moveable):
@@ -25,13 +24,16 @@ class Character(AnimatedSprite, Moveable):
         self.level_manager = level_manager
         self.state = 'static'
 
-        self.velocity = 1.6
-        self.range = 16
-        self.strength = 10
+        self.velocity = 3
+        self.weapon = Weapon()
         self.attacking = False
+        self.health = 100
 
     def update(self):
         super().update()
+        self.weapon.update()
+        self.weapon.rect.x = 1
+        self.weapon.rect.y = 24
         
         dx = 0
         dy = 0
@@ -64,7 +66,7 @@ class Character(AnimatedSprite, Moveable):
             self.state = 'walking'
         elif self.state == 'walking' and not is_walking:
             self.state = 'static'
-            super().set_animation(self.ANIM_STATIC, duration=800)
+            super().set_animation(self.ANIM_STATIC, duration=1)
 
         if self.level_manager.collide(self):
             self.x -= dx
@@ -75,8 +77,11 @@ class Character(AnimatedSprite, Moveable):
             self.y -= dy
         
         self.image = pygame.transform.scale(self.image, (26, 64))
+        self.image.blit(self.weapon.image, self.weapon.rect)
     
     def attack(self):
         for enemy in self.level_manager.get_enemies():
-            if (enemy.x - self.x) ** 2 + (enemy.y - self.y) ** 2 <= self.range ** 2:
-                enemy.take_damage(self.strength)
+            if not self.weapon.is_attacking and\
+                    (enemy.x - self.x) ** 2 + (enemy.y - self.y) ** 2 <= self.weapon.range ** 2:
+                enemy.take_damage(self.weapon.strength)
+                self.weapon.attack()

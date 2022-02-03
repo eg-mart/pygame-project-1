@@ -2,6 +2,7 @@ import pygame
 import os
 import pytmx
 from enemy import Enemy
+import json
 from camera import CameraAwareGroup
 
 
@@ -39,6 +40,8 @@ class EnemyManager(CameraAwareGroup):
             enemy.health = enemy_obj.properties['health']
             enemy.strength = enemy_obj.properties['strength']
             enemy.velocity = enemy_obj.properties['velocity']
+            enemy.range = enemy_obj.properties['range']
+            enemy.animations = json.loads(enemy_obj.properties['animations'])
             enemy.image = pygame.image.load(os.path.join('sprites', enemy_obj.properties['img'])).convert_alpha()
 
             if trigger not in self.trigger_data:
