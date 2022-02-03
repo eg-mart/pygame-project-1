@@ -25,7 +25,6 @@ class Enemy(AnimatedSprite, Moveable):
     
     def take_damage(self, damage):
         self.health -= damage
-        print(self.health)
         if self.health <= 0:
             self.kill()
 

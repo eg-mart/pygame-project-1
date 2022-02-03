@@ -39,8 +39,8 @@ class EnemyManager(pygame.sprite.Group):
             enemy.health = enemy_obj.properties['health']
             enemy.strength = enemy_obj.properties['strength']
             enemy.velocity = enemy_obj.properties['velocity']
+            enemy.range = enemy_obj.properties['range3']
             enemy.animations = json.loads(enemy_obj.properties['animations'])
-            print(enemy.animations)
             enemy.image = pygame.image.load(os.path.join('sprites', enemy_obj.properties['img'])).convert_alpha()
 
             if trigger not in self.trigger_data:
