@@ -52,7 +52,8 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self.image = self.animation[self.frame][0]
         if self.size is not None:
             self.image = pygame.transform.scale(self.image, self.size)
-        self.rect = self.image.get_rect()
+        if self.rect is None:
+            self.rect = self.image.get_rect()
         self.size = self.width, self.height = self.rect.w, self.rect.h
 
     def update(self):
@@ -72,10 +73,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
     def resize(self, width, height, collider_rect=None):
         self.size = self.width, self.height = width, height
         self.image = pygame.transform.scale(self.image, self.size)
-        if collider_rect is None:
-            self.rect = self.image.get_rect()
-        else:
-            self.rect = collider_rect
+        self.rect = self.image.get_rect()
 
     def scale(self, k_x, k_y):
         self.width *= k_x
