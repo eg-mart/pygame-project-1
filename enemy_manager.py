@@ -2,7 +2,6 @@ import pygame
 import os
 import pytmx
 from enemy import Enemy
-from camera import CameraAwareGroup
 import json
 
 
