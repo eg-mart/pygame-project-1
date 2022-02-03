@@ -1,9 +1,11 @@
+from pickle import NONE
 import pygame
+from animated_sprite import AnimatedSprite
 from moveable import Moveable
 from os.path import join
 
 
-class Enemy(Moveable):
+class Enemy(Moveable, AnimatedSprite):
     def __init__(self):
         super().__init__()
         self.health = 10
@@ -14,7 +16,8 @@ class Enemy(Moveable):
         self.rect = None
         self.animate_attack = False
         self.frame = 0
-        self.static_image = self.image
+        self.animations = dict()
+        self.state = 'static'
         # этот класс инициализируется вручную тем, кто делает его объект
     
     def attack(self, sprite):
@@ -41,4 +44,11 @@ class Enemy(Moveable):
             self.y -= dy
 
     def update(self, character):
-        self.step(character)
+        if (self.x - character.x) ** 2 + (self.y - character.y) ** 2 <= self.range ** 2:
+            self.attack(character)
+            self.state = 'attacking'
+        else:
+            self.step(character)
+            self.state = 'walking'
+        if self.animation_name != self.animations[self.state]:
+            self.set_animation(self.animations[self.state])

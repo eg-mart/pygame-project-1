@@ -29,6 +29,7 @@ class Character(AnimatedSprite, Moveable):
         self.range = 16
         self.strength = 10
         self.attacking = False
+        self.health = 100
 
     def update(self):
         super().update()

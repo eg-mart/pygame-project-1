@@ -26,6 +26,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self.frame = 0
         self.animation_clock = pygame.time.Clock()
         self.duration = 1000
+        self.animation_name = animation_name
 
         if animation_name is not None:
             self.animation = load_animation(animation_name, shuffle, self.duration)
