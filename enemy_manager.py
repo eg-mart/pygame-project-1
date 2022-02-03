@@ -13,6 +13,8 @@ class EnemyManager(CameraAwareGroup):
         self.trigger_data = dict()
         self.triggers = pygame.sprite.Group()
         self.is_battle = False
+        self.current_triggers = []
+        self.trigger_ids = dict()
     
     def load_level(self, level_name):
         fullname = os.path.join('levels', level_name + '.tmx')
@@ -22,7 +24,9 @@ class EnemyManager(CameraAwareGroup):
 
         self.empty()
         self.trigger_data = dict()
+        self.trigger_ids = dict()
         self.triggers.empty()
+        self.current_triggers = []
 
         enemy_group = tmx_map.get_layer_by_name('enemies')
         
@@ -32,6 +36,7 @@ class EnemyManager(CameraAwareGroup):
             trigger = pygame.sprite.Sprite()
             trigger.rect = rect
             self.triggers.add(trigger)
+            self.trigger_ids[trigger] = enemy_obj.properties['trigger']
 
             enemy = Enemy()
             enemy.rect = pygame.rect.Rect(enemy_obj.x, enemy_obj.y, enemy_obj.width, enemy_obj.height)
@@ -58,6 +63,34 @@ class EnemyManager(CameraAwareGroup):
             self.spawn(self.trigger_data[trigger])
             self.trigger_data[trigger] = []
             self.is_battle = True
+            self.current_triggers.append(trigger)
+    
+    def save(self):
+        save_data = dict()
+        left_triggers = []
+
+        save_data['current_triggers'] = []
+
+        for trigger in self.current_triggers:
+            save_data['current_triggers'].append(self.trigger_ids[trigger])
+
+        for trigger in self.triggers:
+            left_triggers.append(self.trigger_ids[trigger])
+
+        save_data['triggers'] = left_triggers
+
+        return save_data
+
+    def load(self, save_data):
+        self.triggers.clear()
+        for trigger, id in self.trigger_ids.items():
+            if id in save_data['triggers']:
+                self.triggers.add(trigger)
+            if id in save_data['current_triggers']:
+                self.current_triggers.append(trigger)
+                self.trigger_data[trigger] = []
+                self.is_battle = True
+                self.spawn(self.trigger_data[trigger])
 
     def collide(self, sprite):
         for enemy in self:
