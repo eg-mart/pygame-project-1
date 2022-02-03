@@ -82,6 +82,7 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self.height *= k_y
         self.size = self.width, self.height
         self.image = pygame.transform.scale(self.image, self.size)
+        self.rect = self.image.get_rect()
 
     def zoom(self, k):
         self.scale(k, k)
