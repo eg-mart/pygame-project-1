@@ -94,16 +94,18 @@ class MapManager(CameraAwareGroup):
             left_door_triggers.append(self.trigger_ids[trigger])
 
         for trigger in self.current_door_triggers:
-            current_door_triggers.append(trigger)
+            current_door_triggers.append(self.trigger_ids[trigger])
         
         save_data['locked_triggers'] = left_locked_triggers
         save_data['door_triggers'] = left_door_triggers
         save_data['current_door_triggers'] = current_door_triggers
 
+        return save_data
+
     def load(self, save_data):
         all_locked_triggers = self.locked_triggers.sprites()
-        self.locked_triggers.clear()
-        self.door_triggers.clear()
+        self.locked_triggers.empty()
+        self.door_triggers.empty()
 
         for trigger, id in self.trigger_ids.items():
             if id in save_data['locked_triggers']:

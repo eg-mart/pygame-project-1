@@ -38,7 +38,7 @@ class LevelManager:
     
     def load(self):
         save_data = dict()
-        with open('data/save.json', 'r', 'utf8') as file:
+        with open('data/save.json', 'r', encoding='utf8') as file:
             save_data = json.load(file)
         
         self.load_level(save_data['level_manager']['level'])
@@ -50,11 +50,11 @@ class LevelManager:
         save_data = dict()
         save_data['character'] = self.character.save()
         save_data['enemy_manager'] = self.enemy_manager.save()
-        save_data['map_manager'] = self.enemy_manager.save()
+        save_data['map_manager'] = self.map_manager.save()
         save_data['level_manager'] = dict()
         save_data['level_manager']['level'] = self.level_name
 
-        with open('data/save.json', 'w', 'utf8') as file:
+        with open('data/save.json', 'w', encoding='utf8') as file:
             json.dump(save_data, file)
 
     def load_level(self, level_name):

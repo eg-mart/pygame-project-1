@@ -82,7 +82,7 @@ class EnemyManager(CameraAwareGroup):
         return save_data
 
     def load(self, save_data):
-        self.triggers.clear()
+        self.triggers.empty()
         for trigger, id in self.trigger_ids.items():
             if id in save_data['triggers']:
                 self.triggers.add(trigger)
