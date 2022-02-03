@@ -1,10 +1,11 @@
 import pygame
 import os
 import pytmx
+from camera import CameraAwareGroup
 from tile import Tile
 
 
-class MapManager(pygame.sprite.Group):
+class MapManager(CameraAwareGroup):
     def __init__(self):
         super().__init__()
 

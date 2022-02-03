@@ -3,9 +3,10 @@ import os
 import pytmx
 from enemy import Enemy
 import json
+from camera import CameraAwareGroup
 
 
-class EnemyManager(pygame.sprite.Group):
+class EnemyManager(CameraAwareGroup):
     def __init__(self):
         super().__init__()
 

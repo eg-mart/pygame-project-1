@@ -20,9 +20,14 @@ class Game:
         self.fps = int(config['GRAPHICS']['fps'])
         self.frame_clock = pygame.time.Clock()
 
+        self.camera_target = None
+
         self.render_queue = []  # список всех групп, которые будут отрисованы в следующий кадр
 
         self.subscribers = dict()  # словарь вида {event_type: callback} для подписчиков на события
+    
+    def set_camera_target(self, sprite):
+        self.camera_target = sprite
 
     def run(self):
         while True:
@@ -35,9 +40,18 @@ class Game:
                         fun(event)
                 if event.type == pygame.QUIT:
                     sys.exit()
+            
+            camera = pygame.Vector2(0, 0)
+            if self.camera_target is not None:
+                camera.x = -(self.camera_target.rect.x + self.camera_target.rect.w // 2 - self.size[0] // 2)
+                camera.y = -(self.camera_target.rect.y + self.camera_target.rect.h // 2 - self.size[1] // 2)
+
             for group in self.render_queue:
                 group.update(events)
-                group.draw(self.screen)
+                if hasattr(group, 'camera_draw'):
+                    group.camera_draw(self.screen, camera)
+                else:
+                    group.draw(self.screen)
             pygame.display.flip()
 
     def render(self, group):
