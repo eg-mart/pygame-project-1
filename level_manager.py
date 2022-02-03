@@ -23,7 +23,7 @@ class LevelManager:
 
     def update(self, events):
         self.map_manager.update()
-        self.enemy_manager.update()
+        self.enemy_manager.update(self.character)
         self.character.update()
 
         if len(self.enemy_manager) == 0 and self.enemy_manager.is_battle:
