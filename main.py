@@ -19,7 +19,7 @@ def start_game(events):
     g.unsubscribe(pygame.USEREVENT + 1, start_game)
 
     lvl = LevelManager()
-    lvl.load_level('main')
+    lvl.load_level('next')
     g.set_camera_target(lvl.character)
     g.render(lvl)
     g.subscribe(pygame.KEYDOWN, lambda e: open_start_screen(g) if e.key == pygame.K_ESCAPE else None)

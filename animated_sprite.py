@@ -19,7 +19,7 @@ def load_animation(animation, shuffle, duration):
 
 
 class AnimatedSprite(pygame.sprite.Sprite):
-    def __init__(self, animation_name=None, shuffle=False):
+    def __init__(self, animation_name=None, shuffle=False, collider_rect=None):
         super(AnimatedSprite, self).__init__()
 
         self.frame_duration = 0
@@ -28,10 +28,14 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self.duration = 1000
         self.animation_name = animation_name
 
+        self.collider_rect = collider_rect
+        self.size = None
+
         if animation_name is not None:
             self.animation = load_animation(animation_name, shuffle, self.duration)
             self.image = self.animation[self.frame][0]
-            self.rect = self.image.get_rect()
+            if not self.collider_rect:
+                self.rect = self.image.get_rect()
             self.size = self.width, self.height = self.rect.w, self.rect.h
 
     def draw(self, surface, pos):
@@ -46,8 +50,9 @@ class AnimatedSprite(pygame.sprite.Sprite):
         if rnd:
             self.frame = randint(0, len(self.animation) - 1)
         self.image = self.animation[self.frame][0]
-        if self.rect is None:
-            self.rect = self.image.get_rect()
+        if self.size is not None:
+            self.image = pygame.transform.scale(self.image, self.size)
+        self.rect = self.image.get_rect()
         self.size = self.width, self.height = self.rect.w, self.rect.h
 
     def update(self):
@@ -64,17 +69,22 @@ class AnimatedSprite(pygame.sprite.Sprite):
     def get_height(self):
         return self.rect.h
 
-    def resize(self, width, height):
+    def resize(self, width, height, collider_rect=None):
         self.size = self.width, self.height = width, height
         self.image = pygame.transform.scale(self.image, self.size)
-        self.rect = self.image.get_rect()
+        if collider_rect is None:
+            self.rect = self.image.get_rect()
+        else:
+            self.rect = collider_rect
 
     def scale(self, k_x, k_y):
         self.width *= k_x
         self.height *= k_y
         self.size = self.width, self.height
         self.image = pygame.transform.scale(self.image, self.size)
-        self.rect = self.image.get_rect()
 
     def zoom(self, k):
         self.scale(k, k)
+
+    def set_collider_rect(self, collider_rect):
+        self.collider_rect = collider_rect

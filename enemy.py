@@ -42,7 +42,7 @@ class Enemy(AnimatedSprite, Moveable):
         else:
             self.y -= dy
 
-    def update(self, character):
+    def update(self, character=None):
         if (self.x - character.x) ** 2 + (self.y - character.y) ** 2 <= self.range ** 2:
             self.attack(character)
             self.state = 'attacking'

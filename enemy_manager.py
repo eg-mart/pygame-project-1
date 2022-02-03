@@ -13,6 +13,7 @@ class EnemyManager(CameraAwareGroup):
         self.trigger_data = dict()
         self.triggers = pygame.sprite.Group()
         self.is_battle = False
+        self.character = None
     
     def load_level(self, level_name):
         fullname = os.path.join('levels', level_name + '.tmx')
@@ -64,3 +65,6 @@ class EnemyManager(CameraAwareGroup):
             if (enemy.x - sprite.rect.x) ** 2 + (enemy.y - sprite.rect.y) ** 2 <= enemy.range ** 2:
                 enemy.attack(sprite)
         return pygame.sprite.spritecollideany(sprite, self)
+
+    def update(self, *args, **kwargs):
+        super().update(*args, **kwargs, character=self.character)

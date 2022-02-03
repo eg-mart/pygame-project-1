@@ -19,7 +19,8 @@ class Character(AnimatedSprite, Moveable):
         super().set_animation(self.ANIM_STATIC, duration=800)
         self.image = pygame.image.load(self.IMG_STATIC).convert_alpha()
         self.image = pygame.transform.scale(self.image, (26, 64))
-        self.rect = pygame.rect.Rect(0, 0, self.image.get_width(), 64)
+        self.rect = pygame.rect.Rect(0, 0, 26, 64)
+        self.collider_rect = pygame.rect.Rect(0, 8, self.image.get_width(), 48)
 
         self.level_manager = level_manager
         self.state = 'static'
@@ -75,7 +76,7 @@ class Character(AnimatedSprite, Moveable):
 
         if self.level_manager.collide(self):
             self.y -= dy
-        
+
         self.image = pygame.transform.scale(self.image, (26, 64))
         self.image.blit(self.weapon.image, self.weapon.rect)
     
