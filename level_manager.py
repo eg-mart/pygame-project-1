@@ -8,59 +8,32 @@ from enemy_manager import EnemyManager
 
 
 class LevelManager:
-    def __init__(self, width, height):
+    def __init__(self):
         self.map_manager = MapManager()
         self.enemy_manager = EnemyManager()
         self.character = Character(self)
-        self.width = width
-        self.height = height
         self.level_trigger = None
         self.next_level = None
-
-    def draw(self, surface):
+    
+    def camera_draw(self, surface, camera):
         surface.fill("#" + self.map_manager.bg_color[3:] + self.map_manager.bg_color[1:3])
-        self.map_manager.draw(surface)
-        self.enemy_manager.draw(surface)
-        surface.blit(self.character.image, self.character.rect)
+        self.map_manager.camera_draw(surface, camera)
+        self.enemy_manager.camera_draw(surface, camera)
+        surface.blit(self.character.image, self.character.rect.move(camera))
 
     def update(self, events):
         self.map_manager.update()
-        self.enemy_manager.update(self.character)
+        self.enemy_manager.update()
         self.character.update()
 
         if len(self.enemy_manager) == 0 and self.enemy_manager.is_battle:
             self.enemy_manager.is_battle = False
             self.complete_room()
 
-        self.apply_camera(*self.map_manager)
-        self.apply_camera(*self.enemy_manager)
-        self.apply_camera(*self.enemy_manager.triggers)
-        self.apply_camera(*self.map_manager.door_triggers)
-        self.apply_camera(*self.map_manager.locked_triggers)
-        for value in self.map_manager.door_tiles_dict.values():
-            self.apply_camera(*value)
-        for value in self.enemy_manager.trigger_data.values():
-            self.apply_camera(*value)
-        self.apply_camera(self.level_trigger)
-
-        self.apply_camera(self.character)
-
         self.enemy_manager.check_triggers(self.character)
 
         if pygame.sprite.collide_rect(self.character, self.level_trigger):
             self.load_level(self.next_level)
-
-    def apply_camera(self, *args):
-        dx = -(self.character.rect.x + self.character.rect.w // 2 - self.width // 2)
-        dy = -(self.character.rect.y + self.character.rect.h // 2 - self.height // 2)
-
-        for sprite in args:
-            if isinstance(sprite, Moveable):
-                sprite.x += dx
-                sprite.y += dy
-            else:
-                sprite.rect.x += dx
-                sprite.rect.y += dy
 
     def load_level(self, level_name):
         fullname = os.path.join('levels', level_name + '.tmx')
