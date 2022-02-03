@@ -33,8 +33,8 @@ class Character(AnimatedSprite, Moveable):
     def update(self):
         super().update()
         self.weapon.update()
-        self.weapon.rect.x = 1
-        self.weapon.rect.y = 24
+        self.weapon.rect.x = 4
+        self.weapon.rect.y = 22
         
         dx = 0
         dy = 0
