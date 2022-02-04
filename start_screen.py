@@ -41,7 +41,17 @@ class StartScreen(Menu):
                                               drawing_mode=baseimage.IMAGE_MODE_SIMPLE)
                                     .resize(width * 0.28125, height * 0.13, False),
                                     self.start_game)
-        self.start_btn.translate(self.cx(self.start_btn), self.cy(self.start_btn))
+        self.start_btn.translate(self.cx(self.start_btn), self.cy(self.start_btn) - height * 0.1)
+
+        self.load_btn = button_img(self,
+                                   BaseImage(image_path=pure_path('start_screen/load_btn.png'),
+                                             drawing_mode=baseimage.IMAGE_MODE_SIMPLE)
+                                   .resize(width * 0.28125, height * 0.13, False),
+                                   self.load_game)
+
+        self.load_btn.translate(self.cx(self.start_btn),
+                                self.cy(self.start_btn) + self.start_btn.get_height()
+                                - height * 0.063)
 
         self.exit_btn = button_img(self,
                                    BaseImage(image_path=pure_path('start_screen/exit_btn.png'),
@@ -49,8 +59,8 @@ class StartScreen(Menu):
                                    .resize(width * 0.28125, height * 0.13, False),
                                    EXIT)
         self.exit_btn.translate(self.cx(self.start_btn),
-                                self.cy(self.start_btn) + self.start_btn.get_height() + 40)
-
+                                self.cy(self.start_btn) + self.start_btn.get_height() +
+                                self.load_btn.get_height() - height * 0.026)
 
     def draw(self, *args, **kwargs):
         super().draw(*args, **kwargs)
@@ -65,7 +75,6 @@ class StartScreen(Menu):
         super(StartScreen, self).update(events)
         self.torch1.update()
         self.torch2.update()
-        # self.start_btn.update(events)
 
     def cx(self, image):  # центрирует координату по горизонтали
         return self.width // 2 - image.get_width() // 2
@@ -76,3 +85,7 @@ class StartScreen(Menu):
     def start_game(self):
         pygame.mouse.set_cursor(pygame.cursors.Cursor())
         post(Event(pygame.USEREVENT + 1))
+
+    def load_game(self):
+        pygame.mouse.set_cursor(pygame.cursors.Cursor())
+        post(Event(pygame.USEREVENT + 2))
