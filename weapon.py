@@ -9,7 +9,7 @@ class Weapon(AnimatedSprite):
         self.image = pygame.image.load('sprites/sword.png')
         self.rect = self.image.get_rect()
         self.range = 54
-        self.strength = 10
+        self.strength = 40
         self.is_attacking = False
     
     def attack(self):

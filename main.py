@@ -1,6 +1,7 @@
 from game import Game
 from level_manager import LevelManager
 from start_screen import StartScreen
+from ui_manager import UIManager
 import pygame
 
 
@@ -37,6 +38,10 @@ def start_game(events):
     lvl.load_level('main')
     g.set_camera_target(lvl.character)
     g.render(lvl)
+
+    ui = UIManager(g)
+    g.render(ui)
+
     g.subscribe(pygame.KEYDOWN, lambda e: open_start_screen(g, lvl) if e.key == pygame.K_ESCAPE else None)
 
 

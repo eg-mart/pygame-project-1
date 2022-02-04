@@ -1,6 +1,5 @@
-from pygame_menu import Menu, Theme, BaseImage
+from pygame_menu import Menu, Theme, BaseImage, baseimage
 from pygame_menu.widgets import MENUBAR_STYLE_NONE
-from pygame_menu import baseimage
 from animated_sprite import AnimatedSprite
 from buttons import button_img
 from pygame_menu.events import EXIT
