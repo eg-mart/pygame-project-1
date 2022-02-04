@@ -1,8 +1,7 @@
-from pickle import NONE
 import pygame
 from animated_sprite import AnimatedSprite
 from moveable import Moveable
-from os.path import join
+from pygame.event import post, Event
 
 
 class Enemy(AnimatedSprite, Moveable):
@@ -22,6 +21,7 @@ class Enemy(AnimatedSprite, Moveable):
     
     def attack(self, sprite):
         sprite.health -= self.strength
+        post(Event(pygame.USEREVENT + 3))
     
     def take_damage(self, damage):
         self.health -= damage

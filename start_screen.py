@@ -3,7 +3,6 @@ from pygame_menu.widgets import MENUBAR_STYLE_NONE
 from animated_sprite import AnimatedSprite
 from buttons import button_img
 from pygame_menu.events import EXIT
-import pygame.font
 from pygame.event import post, Event
 import os
 

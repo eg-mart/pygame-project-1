@@ -1,5 +1,3 @@
-from asyncio import current_task
-from threading import current_thread
 import pygame
 import os
 import pytmx
