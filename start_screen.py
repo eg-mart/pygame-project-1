@@ -44,7 +44,7 @@ class StartScreen(Menu):
         self.start_btn.translate(self.cx(self.start_btn), self.cy(self.start_btn) - height * 0.1)
 
         self.load_btn = button_img(self,
-                                   BaseImage(image_path=pure_path('start_screen/start_btn.png'),
+                                   BaseImage(image_path=pure_path('start_screen/load_btn.png'),
                                              drawing_mode=baseimage.IMAGE_MODE_SIMPLE)
                                    .resize(width * 0.28125, height * 0.13, False),
                                    self.load_game)
