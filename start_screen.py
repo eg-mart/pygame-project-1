@@ -51,6 +51,7 @@ class StartScreen(Menu):
         self.exit_btn.translate(self.cx(self.start_btn),
                                 self.cy(self.start_btn) + self.start_btn.get_height() + 40)
 
+
     def draw(self, *args, **kwargs):
         super().draw(*args, **kwargs)
         self.logo.draw(args[0], position=(self.cx(self.logo), int(self.cy(self.logo) * 0.3)))

@@ -10,8 +10,8 @@ class Game:
     def __init__(self):
         pygame.init()
         config = configparser.ConfigParser()
-        config.read('example.conf')
-        if bool(config['GRAPHICS']['is_fullscreen']):
+        config.read('data/example.conf')
+        if config['GRAPHICS']['is_fullscreen'].lower() == 'true':
             self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN, vsync=True)
             self.size = self.screen.get_size()
         else:
