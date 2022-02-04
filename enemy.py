@@ -17,11 +17,12 @@ class Enemy(AnimatedSprite, Moveable):
         self.animate_attack = False
         self.frame = 0
         self.animations = dict()
-        self.state = 'static'
+        self.state = 'walking'
         # этот класс инициализируется вручную тем, кто делает его объект
     
     def attack(self, sprite):
         sprite.health -= self.strength
+        print(sprite.health)
     
     def take_damage(self, damage):
         self.health -= damage
@@ -43,12 +44,16 @@ class Enemy(AnimatedSprite, Moveable):
             self.y -= dy
 
     def update(self, character):
-        if (self.x - character.x) ** 2 + (self.y - character.y) ** 2 <= self.range ** 2:
+        if (self.x - character.x) ** 2 + (self.y - character.y) ** 2 <= self.range ** 2 and self.state != 'attacking':
             self.attack(character)
             self.state = 'attacking'
-        else:
+        elif self.state == 'walking':
             self.step(character)
-            self.state = 'walking'
         if self.animation_name != self.animations[self.state]:
-            self.set_animation(self.animations[self.state], duration=900, rnd=True)
+            dur = 900
+            if self.state == 'attacking':
+                dur = 450
+            self.set_animation(self.animations[self.state], duration=dur, rnd=True)
         super().update()
+        if self.frame == len(self.animation) - 1:
+            self.state = 'walking'

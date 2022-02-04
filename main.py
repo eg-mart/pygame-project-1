@@ -37,7 +37,7 @@ def start_game(events):
     g.clear_render()
     g.unsubscribe(pygame.USEREVENT + 1, start_game)
     g.unsubscribe(pygame.USEREVENT + 2, load_level)
-
+    
     lvl.load_level('main')
     g.set_camera_target(lvl.character)
     g.render(lvl)

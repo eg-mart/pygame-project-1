@@ -128,6 +128,15 @@ class MapManager(CameraAwareGroup):
                 self.door_tiles_dict[trigger] = []
 
     def collide(self, sprite):
+        if sprite.collider_rect is not None:
+            fake_sprite = pygame.sprite.Sprite()
+            fake_sprite.rect = pygame.rect.Rect(sprite.rect.x + sprite.collider_rect.x,
+                                                sprite.rect.y + sprite.collider_rect.y,
+                                                sprite.collider_rect.w,
+                                                sprite.collider_rect.h)
+            sprite = fake_sprite
+        else:
+            sprite = sprite
         unlocked_triggers = pygame.sprite.spritecollide(sprite, self.locked_triggers, True)
         active_triggers = pygame.sprite.spritecollide(sprite, self.door_triggers, True)
 
