@@ -1,4 +1,3 @@
-from pickle import NONE
 import pygame
 from animated_sprite import AnimatedSprite
 from moveable import Moveable
@@ -22,7 +21,6 @@ class Enemy(AnimatedSprite, Moveable):
     
     def attack(self, sprite):
         sprite.health -= self.strength
-        print(sprite.health)
     
     def take_damage(self, damage):
         self.health -= damage
