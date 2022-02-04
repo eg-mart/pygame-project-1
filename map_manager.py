@@ -57,8 +57,10 @@ class MapManager(CameraAwareGroup):
 
             if layer.properties.get('collide', False):
                 self.collider_tiles.add(layer_tiles)
+
             if layer.properties.get('enemy', False):
                 self.enemy_tiles.add(layer_tiles)
+
             if layer.properties.get('unlockable', False):
                 trigger = tmx_map.get_object_by_id(layer.properties['trigger'])
                 rect = pygame.rect.Rect(trigger.x, trigger.y, trigger.width, trigger.height)
@@ -68,6 +70,7 @@ class MapManager(CameraAwareGroup):
                 self.locked_triggers.add(trigger_sprite)
                 self.collider_tiles.add(layer_tiles)
                 self.trigger_ids[trigger_sprite] = layer.properties['trigger']
+
             if layer.properties.get('door', False):
                 trigger = tmx_map.get_object_by_id(layer.properties['trigger'])
                 rect = pygame.rect.Rect(trigger.x, trigger.y, trigger.width, trigger.height)
@@ -106,6 +109,7 @@ class MapManager(CameraAwareGroup):
         all_locked_triggers = self.locked_triggers.sprites()
         self.locked_triggers.empty()
         self.door_triggers.empty()
+        self.current_door_triggers = []
 
         for trigger, id in self.trigger_ids.items():
             if id in save_data['locked_triggers']:

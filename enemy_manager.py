@@ -33,13 +33,16 @@ class EnemyManager(CameraAwareGroup):
         enemy_group = tmx_map.get_layer_by_name('enemies')
         
         for enemy_obj in enemy_group:
-            trigger_obj = tmx_map.get_object_by_id(enemy_obj.properties['trigger'])
-            rect = pygame.rect.Rect(trigger_obj.x, trigger_obj.y, trigger_obj.width, trigger_obj.height)
-            trigger = pygame.sprite.Sprite()
-            trigger.rect = rect
-            if trigger not in self.triggers.sprites():
+            if enemy_obj.properties['trigger'] not in self.trigger_ids.values():
+                trigger_obj = tmx_map.get_object_by_id(enemy_obj.properties['trigger'])
+                rect = pygame.rect.Rect(trigger_obj.x, trigger_obj.y, trigger_obj.width, trigger_obj.height)
+                trigger = pygame.sprite.Sprite()
+                trigger.rect = rect
                 self.triggers.add(trigger)
-            self.trigger_ids[trigger] = enemy_obj.properties['trigger']
+                self.trigger_ids[trigger] = enemy_obj.properties['trigger']
+                self.trigger_data[trigger] = []
+            else:
+                trigger = list(self.trigger_ids.keys())[list(self.trigger_ids.values()).index(enemy_obj.properties['trigger'])]
 
             enemy = Enemy()
             enemy.rect = pygame.rect.Rect(enemy_obj.x, enemy_obj.y, enemy_obj.width, enemy_obj.height)
@@ -52,8 +55,6 @@ class EnemyManager(CameraAwareGroup):
             enemy.animations = json.loads(enemy_obj.properties['animations'])
             enemy.image = pygame.image.load(os.path.join('sprites', enemy_obj.properties['img'])).convert_alpha()
 
-            if trigger not in self.trigger_data:
-                self.trigger_data[trigger] = []
             self.trigger_data[trigger].append(enemy)
 
     def spawn(self, enemies):
@@ -66,7 +67,8 @@ class EnemyManager(CameraAwareGroup):
             self.spawn(self.trigger_data[trigger])
             self.trigger_data[trigger] = []
             self.is_battle = True
-            self.current_triggers.append(trigger)
+            if trigger not in self.current_triggers:
+                self.current_triggers.append(trigger)
     
     def save(self):
         save_data = dict()
@@ -87,6 +89,7 @@ class EnemyManager(CameraAwareGroup):
 
     def load(self, save_data):
         self.triggers.empty()
+        self.current_triggers = []
         for trigger, id in self.trigger_ids.items():
             if id in save_data['triggers']:
                 self.triggers.add(trigger)

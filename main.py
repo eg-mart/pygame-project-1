@@ -4,6 +4,11 @@ from start_screen import StartScreen
 import pygame
 
 
+def key_control(event):
+    if event.key == pygame.K_ESCAPE:
+        open_start_screen(g, lvl)
+
+
 def load_level(e):
     g.clear_render()
     g.unsubscribe(pygame.USEREVENT + 1, start_game)
@@ -12,7 +17,7 @@ def load_level(e):
     lvl.load()
     g.set_camera_target(lvl.character)
     g.render(lvl)
-    g.subscribe(pygame.KEYDOWN, lambda e: open_start_screen(g, lvl) if e.key == pygame.K_ESCAPE else None)
+    g.subscribe(pygame.KEYDOWN, key_control)
 
 
 def open_start_screen(*args, **kwargs):
@@ -20,8 +25,7 @@ def open_start_screen(*args, **kwargs):
         args[1].save()
     g = args[0]
     g.clear_render()
-    g.unsubscribe(pygame.KEYDOWN,
-                  lambda e: open_start_screen(g) if e.key == pygame.K_ESCAPE else None)
+    g.unsubscribe(pygame.KEYDOWN, key_control)
 
     start_screen = StartScreen(g)
     g.render(start_screen)
