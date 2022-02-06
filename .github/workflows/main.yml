@@ -18,7 +18,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: win64
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -30,11 +30,10 @@ jobs:
         run: |
           pip install pyinstaller
           pyinstaller -F main.py
-          ls /home/runner/work/pygame-project-1/pygame-project-1/dist/main/
           
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: main.exe
-          path: /home/runner/work/pygame-project-1/pygame-project-1/dist/main/
+          path: /home/runner/work/pygame-project-1/pygame-project-1/dist/*
           retention-days: 5
