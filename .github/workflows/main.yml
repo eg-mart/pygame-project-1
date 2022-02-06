@@ -30,10 +30,11 @@ jobs:
         run: |
           pip install pyinstaller
           pyinstaller -F main.py
+          ls /home/runner/work/pygame-project-1/pygame-project-1/dist/main/
           
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: exe-file
+          name: main.exe
           path: /home/runner/work/pygame-project-1/pygame-project-1/dist/main/
           retention-days: 5
