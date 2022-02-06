@@ -30,7 +30,17 @@ jobs:
         run: |
           pip install pyinstaller
           pip install -r requirements.txt
-          pyinstaller -D --add-data 'data\*;data' --add-data 'levels\*;levels' --add-data 'sprites\*;sprites' main.py
+          pyinstaller -D --add-data 'data\*;data'`
+          --add-data 'levels\*;levels'`
+          --add-data 'sprites\*.*;sprites'`
+          --add-data 'sprites\character_forward\*;sprites\character_forward'`
+          --add-data 'sprites\character_static\*;sprites\character_static'`
+          --add-data 'sprites\goblin_attacking\*;sprites\goblin_attacking'`
+          --add-data 'sprites\goblin_walking\*;sprites\goblin_walking'`
+          --add-data 'sprites\start_screen\*;sprites\start_screen'`
+          --add-data 'sprites\sword_attacking\*;sprites\sword_attacking'`
+          --add-data 'sprites\torch_animation\*;sprites\torch_animation'`
+          main.py
           
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
