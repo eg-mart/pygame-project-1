@@ -30,11 +30,11 @@ jobs:
         run: |
           pip install pyinstaller
           pip install -r requirements.txt
-          pyinstaller -F --add-data 'data;data' main.py
+          pyinstaller -F --add-data 'data\*;data' --add-data 'levels\*;levels' --add-data 'sprites\*;sprites' main.py
           
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: main
-          path: dist\main.exe
+          path: dist\
           retention-days: 5
