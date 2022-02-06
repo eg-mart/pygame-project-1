@@ -30,7 +30,7 @@ jobs:
         run: |
           pip install pyinstaller
           pip install -r requirements.txt
-          pyinstaller -D --add-data 'data\*;data'`
+          pyinstaller -D -w --add-data 'data\*;data'`
           --add-data 'levels\*;levels'`
           --add-data 'sprites\*.*;sprites'`
           --add-data 'sprites\character_forward\*;sprites\character_forward'`
