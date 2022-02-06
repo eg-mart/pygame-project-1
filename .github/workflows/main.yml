@@ -35,5 +35,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: exe-file
-          path: /home/runner/work/pygame-project-1/pygame-project-1/dist/main/*
+          path: /home/runner/work/pygame-project-1/pygame-project-1/dist/main/main.exe
           retention-days: 5
