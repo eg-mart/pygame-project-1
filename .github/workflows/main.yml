@@ -30,3 +30,10 @@ jobs:
         run: |
           pip install pyinstaller
           pyinstaller -F main.py
+          
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: exe-file
+          path: src/dist/*.exe
+          retention-days: 5
