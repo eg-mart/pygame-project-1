@@ -2,6 +2,8 @@ from game import Game
 from level_manager import LevelManager
 from start_screen import StartScreen
 import pygame
+import os
+import sys
 
 
 def key_control(event):
@@ -44,6 +46,8 @@ def start_game(events):
     g.subscribe(pygame.KEYDOWN, lambda e: open_start_screen(g, lvl) if e.key == pygame.K_ESCAPE else None)
 
 
+if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+    os.chdir(sys._MEIPASS)
 g = Game()
 lvl = LevelManager()
 open_start_screen(g)
