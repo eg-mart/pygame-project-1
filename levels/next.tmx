@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="15" height="15" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="5">
+<map version="1.8" tiledversion="1.8.2" orientation="orthogonal" renderorder="right-down" width="15" height="15" tilewidth="64" tileheight="64" infinite="0" nextlayerid="5" nextobjectid="5">
  <properties>
   <property name="bg_color" type="color" value="#ff302c2e"/>
  </properties>
@@ -47,11 +47,6 @@
 </data>
  </layer>
  <objectgroup id="3" name="Triggers">
-  <object id="1" name="next_level_trigger" x="788" y="93.6667" width="88" height="86">
-   <properties>
-    <property name="next_level_name" value="error"/>
-   </properties>
-  </object>
   <object id="2" name="character" x="434.667" y="152.333">
    <point/>
   </object>
