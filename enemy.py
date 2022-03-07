@@ -15,6 +15,7 @@ class Enemy(AnimatedSprite, Moveable):
         self.rect = None
         self.animate_attack = False
         self.frame = 0
+        self.score = 10
         self.animations = dict()
         self.state = 'walking'
         # этот класс инициализируется вручную тем, кто делает его объект
