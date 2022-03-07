@@ -50,6 +50,7 @@ class EnemyManager(CameraAwareGroup):
             enemy.health = enemy_obj.properties['health']
             enemy.strength = enemy_obj.properties['strength']
             enemy.velocity = enemy_obj.properties['velocity']
+            enemy.score = enemy_obj.properties['score']
             enemy.range = enemy_obj.properties['range']
             enemy.animations = json.loads(enemy_obj.properties['animations'])
             enemy.image = pygame.image.load(os.path.join('sprites', enemy_obj.properties['img'])).convert_alpha()

@@ -29,6 +29,7 @@ class Character(AnimatedSprite, Moveable):
         self.weapon = Weapon()
         self.attacking = False
         self.health = 100
+        self.score = 0
     
     def save(self):
         save_data = dict()
@@ -97,4 +98,6 @@ class Character(AnimatedSprite, Moveable):
             if not self.weapon.is_attacking and\
                     (enemy.x - self.x) ** 2 + (enemy.y - self.y) ** 2 <= self.weapon.range ** 2:
                 enemy.take_damage(self.weapon.strength)
+                if not enemy.alive():
+                    self.score += enemy.score
                 self.weapon.attack()
