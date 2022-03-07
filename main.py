@@ -6,6 +6,10 @@ import os
 import sys
 
 
+def load_ask_message(events):
+    g.paused = not g.paused
+
+
 def key_control(event):
     if event.key == pygame.K_ESCAPE:
         open_start_screen(g, lvl)
@@ -20,6 +24,7 @@ def load_level(e):
     g.set_camera_target(lvl.character)
     g.render(lvl)
     g.subscribe(pygame.KEYDOWN, key_control)
+    g.subscribe(pygame.USEREVENT + 3, load_ask_message)
 
 
 def open_start_screen(*args, **kwargs):
@@ -28,6 +33,7 @@ def open_start_screen(*args, **kwargs):
     g = args[0]
     g.clear_render()
     g.unsubscribe(pygame.KEYDOWN, key_control)
+    g.unsubscribe(pygame.USEREVENT + 3, load_ask_message)
 
     start_screen = StartScreen(g)
     g.render(start_screen)
@@ -39,11 +45,13 @@ def start_game(events):
     g.clear_render()
     g.unsubscribe(pygame.USEREVENT + 1, start_game)
     g.unsubscribe(pygame.USEREVENT + 2, load_level)
-    
+
     lvl.load_level('main')
     g.set_camera_target(lvl.character)
     g.render(lvl)
-    g.subscribe(pygame.KEYDOWN, lambda e: open_start_screen(g, lvl) if e.key == pygame.K_ESCAPE else None)
+    g.subscribe(pygame.KEYDOWN,
+                lambda e: open_start_screen(g, lvl) if e.key == pygame.K_ESCAPE else None)
+    g.subscribe(pygame.USEREVENT + 3, load_ask_message)
 
 
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):

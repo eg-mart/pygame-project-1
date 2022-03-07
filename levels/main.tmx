@@ -224,6 +224,7 @@
  <objectgroup id="4" name="Triggers">
   <object id="1" name="next_level_trigger" x="421" y="102" width="80" height="86">
    <properties>
+    <property name="is_final" type="bool" value="false"/>
     <property name="next_level_name" value="next"/>
    </properties>
   </object>
