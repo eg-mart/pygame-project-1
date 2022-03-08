@@ -2,7 +2,7 @@ import sys
 
 import pygame
 import configparser
-from pygame_menu import Menu
+from pygame.event import post, Event
 
 
 # import os
@@ -38,10 +38,6 @@ class Game:
     @paused.setter
     def paused(self, _paused):
         self._paused = _paused
-        if _paused:
-            self.pause()
-        else:
-            self.unpause()
 
     def set_camera_target(self, sprite):
         self.camera_target = sprite
@@ -75,8 +71,9 @@ class Game:
                 else:
                     group.draw(self.screen)
             if self.paused and self.pause_surface is None:
-                self.pause_surface = self.screen
-                # self.pause_surface.fill((0, 0, 0, 128))
+                self.pause_surface = self.screen.copy()
+                self.pause_surface.set_alpha(150)
+                self.pause()
             pygame.display.flip()
 
     def render(self, group):
@@ -109,9 +106,12 @@ class Game:
 
     def pause(self):
         self.pause_data = self.render_queue, self.subscribers
-
         self.clear_render()
+        post(Event(pygame.USEREVENT + 4))
+        # for fun in self.subscribers[pygame.USEREVENT + 4]:
+        #     fun(pygame.USEREVENT + 4)
         self.subscribers.clear()
 
     def unpause(self):
         self.render_queue, self.subscribers = self.pause_data
+        self.pause_data = None

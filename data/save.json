@@ -1,1 +1,1 @@
-{"character": {"health": 100, "x": 182.57054557049528, "y": 382.4507490060909}, "enemy_manager": {"triggers": [4, 15], "current_triggers": []}, "map_manager": {"locked_triggers": [19], "door_triggers": [4, 15], "current_door_triggers": []}, "level_manager": {"level": "main"}}
+{"character": {"health": 100, "x": 313.666, "y": 450.333}, "enemy_manager": {"triggers": [4, 15], "current_triggers": []}, "map_manager": {"locked_triggers": [19], "door_triggers": [4, 15], "current_door_triggers": []}, "level_manager": {"level": "main"}}

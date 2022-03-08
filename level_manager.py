@@ -65,6 +65,7 @@ class LevelManager:
     def load_level(self, level_name):
         if self.is_final:
             post(Event(pygame.USEREVENT + 3))
+            return
         self.level_name = level_name
         fullname = os.path.join('levels', level_name + '.tmx')
         if not os.path.isfile(fullname):

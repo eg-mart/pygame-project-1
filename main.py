@@ -1,13 +1,15 @@
 from game import Game
 from level_manager import LevelManager
 from start_screen import StartScreen
+from ask_message import AskMessage
 import pygame
 import os
 import sys
 
 
 def load_ask_message(events):
-    g.paused = not g.paused
+    # g.subscribe(pygame.USEREVENT + 4, lambda e: g.render(AskMessage(g)))
+    g.paused = True
 
 
 def key_control(event):
