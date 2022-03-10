@@ -62,9 +62,16 @@ class LevelManager:
         with open('data/save.json', 'w', encoding='utf8') as file:
             json.dump(save_data, file)
 
+    def delete_save(self):
+        try:
+            os.remove('data/save.json')
+        except Exception as e:
+            pass
+
     def load_level(self, level_name):
         if self.is_final:
-            post(Event(pygame.USEREVENT + 3))
+            post(Event(pygame.USEREVENT + 3, {"level_name": level_name}))
+            self.is_final = False
             return
         self.level_name = level_name
         fullname = os.path.join('levels', level_name + '.tmx')

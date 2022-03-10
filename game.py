@@ -105,13 +105,15 @@ class Game:
         sys.exit()
 
     def pause(self):
-        self.pause_data = self.render_queue, self.subscribers
+        self.pause_data = self.render_queue[:], self.subscribers.copy()
         self.clear_render()
         post(Event(pygame.USEREVENT + 4))
-        # for fun in self.subscribers[pygame.USEREVENT + 4]:
-        #     fun(pygame.USEREVENT + 4)
+        for fun in self.subscribers[pygame.USEREVENT + 4]:
+            fun(pygame.USEREVENT + 4)
         self.subscribers.clear()
 
     def unpause(self):
+        self.clear_render()
+        post(Event(pygame.USEREVENT + 5))
         self.render_queue, self.subscribers = self.pause_data
         self.pause_data = None

@@ -2,3 +2,5 @@ USEREVENT + 1: start button
 USEREVENT + 2: load button
 USEREVENT + 3: load main level
 USEREVENT + 4: pause (with pause_screen)
+USEREVENT + 5: unpause
+USEREVENT + 6: complete_game

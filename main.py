@@ -8,8 +8,36 @@ import sys
 
 
 def load_ask_message(events):
-    # g.subscribe(pygame.USEREVENT + 4, lambda e: g.render(AskMessage(g)))
+    g.subscribe(pygame.USEREVENT + 4, lambda e: g.render(AskMessage(g, lvl.character.score)))
     g.paused = True
+    flag = False
+
+    def continue_game(e):
+        nonlocal flag
+        if flag:
+            return
+        else:
+            flag = True
+        lvl.load_level(e.__dict__["level_name"])
+        g.unsubscribe(pygame.USEREVENT + 4, lambda e: g.render(AskMessage(g, lvl.character.score)))
+        g.pause_surface = None
+        g.paused = False
+
+    g.subscribe(pygame.USEREVENT + 5, lambda e: continue_game(events))
+
+    def complete_game(e):
+        nonlocal flag
+        if flag:
+            return
+        else:
+            flag = True
+        g.unsubscribe(pygame.USEREVENT + 6, lambda e: complete_game(events))
+        g.pause_surface = None
+        g.paused = False
+        lvl.delete_save()
+        open_start_screen(g)
+
+    g.subscribe(pygame.USEREVENT + 6, lambda e: complete_game(events))
 
 
 def key_control(event):
@@ -18,15 +46,26 @@ def key_control(event):
 
 
 def load_level(e):
+    global lvl
+    try:
+        with open('data/save.json') as f:
+            print("Loading saving game...")
+    except IOError:
+        print("No saved game")
+        return
+    try:
+        lvl
+    except NameError:
+        lvl = LevelManager()
+        lvl.load()
+
     g.clear_render()
     g.unsubscribe(pygame.USEREVENT + 1, start_game)
     g.unsubscribe(pygame.USEREVENT + 2, load_level)
-
-    lvl.load()
     g.set_camera_target(lvl.character)
     g.render(lvl)
     g.subscribe(pygame.KEYDOWN, key_control)
-    g.subscribe(pygame.USEREVENT + 3, load_ask_message)
+    g.subscribe(pygame.USEREVENT + 3, lambda e: load_ask_message(e))
 
 
 def open_start_screen(*args, **kwargs):
@@ -44,6 +83,9 @@ def open_start_screen(*args, **kwargs):
 
 
 def start_game(events):
+    global lvl
+    lvl = LevelManager()
+    lvl.delete_save()
     g.clear_render()
     g.unsubscribe(pygame.USEREVENT + 1, start_game)
     g.unsubscribe(pygame.USEREVENT + 2, load_level)
@@ -59,6 +101,5 @@ def start_game(events):
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     os.chdir(sys._MEIPASS)
 g = Game()
-lvl = LevelManager()
 open_start_screen(g)
 g.run()
