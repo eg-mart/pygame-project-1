@@ -2,7 +2,9 @@ import sys
 
 import pygame
 import configparser
-from pygame_menu import Menu
+from pygame.event import post, Event
+
+
 # import os
 
 
@@ -19,13 +21,24 @@ class Game:
             self.screen = pygame.display.set_mode(self.size, vsync=True)
         self.fps = int(config['GRAPHICS']['fps'])
         self.frame_clock = pygame.time.Clock()
+        self._paused = False
+        self.pause_surface = None
+        self.pause_data = None
 
         self.camera_target = None
 
         self.render_queue = []  # список всех групп, которые будут отрисованы в следующий кадр
 
         self.subscribers = dict()  # словарь вида {event_type: callback} для подписчиков на события
-    
+
+    @property
+    def paused(self):
+        return self._paused
+
+    @paused.setter
+    def paused(self, _paused):
+        self._paused = _paused
+
     def set_camera_target(self, sprite):
         self.camera_target = sprite
 
@@ -40,11 +53,16 @@ class Game:
                         fun(event)
                 if event.type == pygame.QUIT:
                     sys.exit()
-            
+
             camera = pygame.Vector2(0, 0)
             if self.camera_target is not None:
-                camera.x = -(self.camera_target.rect.x + self.camera_target.rect.w // 2 - self.size[0] // 2)
-                camera.y = -(self.camera_target.rect.y + self.camera_target.rect.h // 2 - self.size[1] // 2)
+                camera.x = -(self.camera_target.rect.x + self.camera_target.rect.w // 2 - self.size[
+                    0] // 2)
+                camera.y = -(self.camera_target.rect.y + self.camera_target.rect.h // 2 - self.size[
+                    1] // 2)
+
+            if self.paused and self.pause_surface is not None:
+                self.screen.blit(self.pause_surface, (0, 0))
 
             for group in self.render_queue:
                 group.update(events)
@@ -52,6 +70,10 @@ class Game:
                     group.camera_draw(self.screen, camera)
                 else:
                     group.draw(self.screen)
+            if self.paused and self.pause_surface is None:
+                self.pause_surface = self.screen.copy()
+                self.pause_surface.set_alpha(150)
+                self.pause()
             pygame.display.flip()
 
     def render(self, group):
@@ -81,3 +103,17 @@ class Game:
     def terminate(self):
         pygame.quit()
         sys.exit()
+
+    def pause(self):
+        self.pause_data = self.render_queue[:], self.subscribers.copy()
+        self.clear_render()
+        post(Event(pygame.USEREVENT + 4))
+        for fun in self.subscribers[pygame.USEREVENT + 4]:
+            fun(pygame.USEREVENT + 4)
+        self.subscribers.clear()
+
+    def unpause(self):
+        self.clear_render()
+        post(Event(pygame.USEREVENT + 5))
+        self.render_queue, self.subscribers = self.pause_data
+        self.pause_data = None

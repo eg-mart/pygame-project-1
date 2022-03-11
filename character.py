@@ -36,12 +36,14 @@ class Character(AnimatedSprite, Moveable):
         save_data['health'] = self.health
         save_data['x'] = self.x
         save_data['y'] = self.y
+        save_data['score'] = self.score
         return save_data
     
     def load(self, save_data):
         self.health = save_data['health']
         self.x = save_data['x']
         self.y = save_data['y']
+        self.score = save_data['score']
 
     def update(self):
         super().update()
